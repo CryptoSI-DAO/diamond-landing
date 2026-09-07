@@ -1,465 +1,1298 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diamond Hands Protocol - DHP</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/minimal.css">
-    <style>
-        :root {
-            --bg: #0a0a0f;
-            --bg-secondary: #12121a;
-            --fg: #e8e8f0;
-            --muted: #6b6b80;
-            --accent: #00d4aa;
-            --accent-hover: #00f5c4;
-            --card: #1a1a24;
-            --border: #2a2a3a;
-            --muted-border: #3a3a4a;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond Hands Protocol — Paper hands fund diamond hands. On-chain. Forever.</title>
+<meta name="description" content="A permissionless vault factory on Base. Every tax event pays holders as dividends and burns tokens. The longer you hold, the more you earn from those who don't.">
+<meta property="og:title" content="Diamond Hands Protocol">
+<meta property="og:description" content="Paper hands fund diamond hands. On-chain. Forever.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cryptosi-dao.github.io/diamond-landing/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060a;
+  --bg-soft: #0d0d14;
+  --bg-card: #11111a;
+  --bg-elevated: #16161f;
+  --border: #1e1e2a;
+  --border-strong: #2a2a3a;
+  --fg: #f5f5fa;
+  --fg-soft: #b8b8c8;
+  --muted: #6e6e82;
+  --accent: #00ffa3;
+  --accent-dim: #00b87a;
+  --accent-glow: rgba(0, 255, 163, 0.18);
+  --danger: #ff5470;
+  --warning: #ffb547;
+  --gradient-1: linear-gradient(135deg, #00ffa3 0%, #00d4ff 100%);
+  --gradient-2: linear-gradient(135deg, #b700ff 0%, #00ffa3 100%);
+  --gradient-dark: linear-gradient(180deg, #06060a 0%, #0a0a12 100%);
+}
 
-        * {
-            box-sizing: border-box;
-        }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--fg);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
+/* Selection */
+::selection { background: var(--accent); color: var(--bg); }
 
-        a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
 
-        a:hover {
-            color: var(--accent-hover);
-        }
+/* Layout */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 120px 0; position: relative; }
+.section-narrow { padding: 80px 0; }
+.section-header { text-align: center; margin-bottom: 80px; }
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+h1 { font-size: clamp(40px, 7vw, 88px); }
+h2 { font-size: clamp(32px, 5vw, 56px); margin-bottom: 16px; }
+h3 { font-size: clamp(20px, 2.5vw, 28px); }
+h4 { font-size: 18px; }
+p { color: var(--fg-soft); }
+a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+.muted { color: var(--muted); }
+.gradient-text {
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+/* Navigation */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 0;
+  background: rgba(6, 6, 10, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 18px;
+}
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  background: var(--gradient-1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+}
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  color: var(--fg-soft);
+  font-size: 14px;
+  font-weight: 500;
+}
+.nav-links a:hover { color: var(--fg); }
+.nav-cta {
+  background: var(--accent);
+  color: var(--bg);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.nav-cta:hover { background: #1affb4; transform: translateY(-1px); }
 
-        /* Header */
-        header {
-            padding: 40px 0 20px;
-            border-bottom: 1px solid var(--border);
-        }
+/* Hero */
+.hero {
+  min-height: 100vh;
+  padding: 160px 0 80px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: -10%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(180deg, transparent, var(--bg));
+  z-index: 1;
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.hero-content { max-width: 700px; }
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-soft);
+  margin-bottom: 32px;
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.hero h1 { margin-bottom: 24px; }
+.hero-sub {
+  font-size: clamp(18px, 2vw, 22px);
+  color: var(--fg-soft);
+  margin-bottom: 40px;
+  max-width: 560px;
+}
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+.btn-primary:hover { background: #1affb4; transform: translateY(-2px); box-shadow: 0 8px 24px var(--accent-glow); }
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--fg);
+  border-color: var(--border);
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.btn-ghost { color: var(--fg-soft); padding: 14px 16px; }
+.btn-ghost:hover { color: var(--fg); }
+.btn svg { width: 16px; height: 16px; }
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.stat-num {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 4px;
+  font-feature-settings: "tnum";
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
 
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+/* Hero Visual — Animated Tax Flow */
+.hero-visual {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 32px;
+  overflow: hidden;
+}
+.hero-visual::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 0%, var(--accent-glow) 0%, transparent 60%);
+  pointer-events: none;
+}
+.flow-title {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.flow-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+.flow-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+.flow-row:hover { border-color: var(--accent-dim); }
+.flow-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.flow-icon.deposit { background: rgba(0, 212, 255, 0.12); color: #00d4ff; }
+.flow-icon.dividend { background: rgba(0, 255, 163, 0.12); color: var(--accent); }
+.flow-icon.fee { background: rgba(183, 0, 255, 0.12); color: #b700ff; }
+.flow-icon.burn { background: rgba(255, 84, 112, 0.12); color: var(--danger); }
+.flow-row-label { font-size: 13px; font-weight: 600; }
+.flow-row-desc { font-size: 12px; color: var(--muted); }
+.flow-row-value { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 14px; }
+.flow-divider {
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  margin: -8px 0;
+  padding-left: 28px;
+}
+.flow-divider::before {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 16px;
+  background: linear-gradient(180deg, transparent, var(--accent-dim), transparent);
+  vertical-align: middle;
+  margin-right: 8px;
+}
 
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
+/* Live banner */
+.live-banner {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 64px;
+  flex-wrap: wrap;
+}
+.live-banner-left { flex: 1; min-width: 200px; }
+.live-banner h4 { font-size: 16px; margin-bottom: 4px; }
+.live-banner p { font-size: 13px; color: var(--muted); margin: 0; }
+.live-banner-stats {
+  display: flex;
+  gap: 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+.live-stat { color: var(--muted); }
+.live-stat strong { color: var(--accent); font-weight: 600; display: block; font-size: 16px; }
 
-        .nav-links a {
-            margin-left: 24px;
-            color: var(--muted);
-            font-size: 14px;
-        }
+/* Video Section */
+.video-section {
+  background: var(--bg-soft);
+}
+.video-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  aspect-ratio: 16/9;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.video-wrapper:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.video-placeholder {
+  text-align: center;
+  color: var(--muted);
+  padding: 40px;
+}
+.video-icon-large {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg);
+  transition: all 0.3s ease;
+}
+.video-wrapper:hover .video-icon-large { transform: scale(1.1); }
+.video-icon-large svg { width: 32px; height: 32px; margin-left: 4px; }
+.video-placeholder h3 { color: var(--fg); margin-bottom: 8px; }
+.video-placeholder p { font-size: 14px; margin: 0; }
+.video-note {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--muted);
+}
 
-        .nav-links a:hover {
-            color: var(--fg);
-        }
+/* How It Works */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-strong) 20%, var(--border-strong) 80%, transparent);
+  z-index: 0;
+}
+.step {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.step-num {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  position: relative;
+  z-index: 2;
+}
+.step h3 { font-size: 18px; margin-bottom: 8px; }
+.step p { font-size: 14px; color: var(--muted); }
 
-        /* Hero */
-        .hero {
-            min-height: 600px;
-            padding: 80px 0 40px;
-            position: relative;
-        }
+/* Token Economics */
+.economics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.econ-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.econ-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gradient-1);
+}
+.econ-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.econ-value {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.econ-desc { font-size: 14px; color: var(--fg-soft); }
 
-        .hero-badge {
-            position: absolute;
-            top: 30px;
-            left: 0;
-        }
+.econ-bar {
+  display: flex;
+  height: 60px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+.econ-bar-seg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--bg);
+  position: relative;
+  transition: all 0.3s ease;
+}
+.econ-bar-seg:hover { filter: brightness(1.2); }
+.econ-bar-seg.dividend { background: var(--accent); }
+.econ-bar-seg.fee { background: #b700ff; color: white; }
+.econ-bar-seg.burn { background: var(--danger); color: white; }
 
-        .hero-badge span {
-            background: var(--accent);
-            color: var(--bg);
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
+.econ-legend {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.econ-legend-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--fg-soft); }
+.econ-legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+.econ-legend-dot.dividend { background: var(--accent); }
+.econ-legend-dot.fee { background: #b700ff; }
+.econ-legend-dot.burn { background: var(--danger); }
 
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 20px;
-        }
+/* Security / Trust */
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.security-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.security-card:hover { border-color: var(--accent-dim); transform: translateY(-2px); }
+.security-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+  background: var(--accent-glow);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.security-icon svg { width: 24px; height: 24px; }
+.security-num { font-size: 24px; font-weight: 700; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; }
+.security-label { font-size: 13px; color: var(--muted); }
 
-        .hero p {
-            font-size: 18px;
-            color: var(--muted);
-            line-height: 1.8;
-            max-width: 600px;
-        }
+.audit-banner {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.audit-banner-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--accent);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg);
+  flex-shrink: 0;
+}
+.audit-banner-icon svg { width: 28px; height: 28px; }
+.audit-banner-content { flex: 1; min-width: 200px; }
+.audit-banner h3 { font-size: 18px; margin-bottom: 4px; }
+.audit-banner p { font-size: 14px; margin: 0; }
+.audit-banner-btn { white-space: nowrap; }
 
-        .hero-features {
-            margin-top: 60px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
+/* Contracts */
+.contracts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.contract-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.3s ease;
+}
+.contract-card:hover { border-color: var(--accent-dim); }
+.contract-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.contract-badge {
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+.contract-card h3 { font-size: 20px; }
+.contract-card p { font-size: 14px; margin-bottom: 20px; }
+.contract-address {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--fg-soft);
+  word-break: break-all;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.copy-btn {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--fg-soft);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+.copy-btn:hover { color: var(--accent); border-color: var(--accent-dim); }
 
-        .feature-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
+/* Roadmap */
+.roadmap-timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.roadmap-timeline::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+.roadmap-item {
+  position: relative;
+  padding-left: 64px;
+  margin-bottom: 48px;
+}
+.roadmap-item:last-child { margin-bottom: 0; }
+.roadmap-dot {
+  position: absolute;
+  left: 16px;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--border-strong);
+}
+.roadmap-dot.done { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
+.roadmap-dot.active { background: var(--warning); border-color: var(--warning); box-shadow: 0 0 12px rgba(255, 181, 71, 0.3); }
+.roadmap-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+.roadmap-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.roadmap-tag.done { background: var(--accent); color: var(--bg); }
+.roadmap-tag.active { background: var(--warning); color: var(--bg); }
+.roadmap-tag.upcoming { background: var(--bg-elevated); color: var(--fg-soft); }
+.roadmap-content h3 { font-size: 18px; margin-bottom: 4px; }
+.roadmap-content p { font-size: 14px; color: var(--muted); margin: 0; }
 
-        .feature-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-4px);
-        }
+/* CTA */
+.cta-section {
+  text-align: center;
+  background: var(--bg-soft);
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+  filter: blur(60px);
+  z-index: 0;
+}
+.cta-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.cta-content h2 { margin-bottom: 16px; }
+.cta-content p { font-size: 18px; margin-bottom: 32px; }
+.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--accent);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-        }
+/* Footer */
+.footer {
+  background: var(--bg-soft);
+  border-top: 1px solid var(--border);
+  padding: 64px 0 32px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.footer-brand { max-width: 320px; }
+.footer-brand .logo { margin-bottom: 16px; }
+.footer-brand p { font-size: 14px; color: var(--muted); }
+.footer-col h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 16px; font-weight: 600; }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 10px; }
+.footer-col a { color: var(--fg-soft); font-size: 14px; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom {
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-bottom a { color: var(--muted); }
+.footer-bottom a:hover { color: var(--accent); }
 
-        .feature-icon svg {
-            width: 24px;
-            height: 24px;
-            stroke: var(--bg);
-            fill: none;
-        }
-
-        .feature-card h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .feature-card p {
-            font-size: 14px;
-            color: var(--muted);
-            line-height: 1.5;
-        }
-
-        /* Features Grid */
-        .features {
-            padding: 80px 0;
-        }
-
-        .features h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        /* Contracts Section */
-        .contracts {
-            padding: 80px 0;
-            background: var(--bg-secondary);
-        }
-
-        .contracts h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        .contracts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        .contract-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            transition: transform 0.2s ease;
-        }
-
-        .contract-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .contract-card h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .contract-card p {
-            font-size: 14px;
-            color: var(--muted);
-            line-height: 1.5;
-        }
-
-        .contract-address {
-            background: var(--bg-secondary);
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 12px;
-            font-family: 'SF Mono', 'Courier New', monospace;
-            word-break: break-all;
-            font-size: 12px;
-        }
-
-        /* Features Grid Items */
-        .feature-card:nth-child(1) .feature-icon svg { stroke: #00d4aa; }
-        .feature-card:nth-child(2) .feature-icon svg { stroke: #00d4aa; }
-        .feature-card:nth-child(3) .feature-icon svg { stroke: #00d4aa; }
-
-        /* Roadmap */
-        .roadmap {
-            padding: 80px 0;
-        }
-
-        .roadmap h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        .roadmap-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .roadmap-item {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .roadmap-item h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .roadmap-item p {
-            font-size: 13px;
-            color: var(--muted);
-        }
-
-        /* CTA */
-        .cta {
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .cta h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .cta p {
-            color: var(--muted);
-            margin-bottom: 32px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-btn {
-            background: var(--accent);
-            color: var(--bg);
-            padding: 16px 32px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            display: inline-block;
-            transition: background 0.2s ease;
-        }
-
-        .cta-btn:hover {
-            background: var(--accent-hover);
-        }
-
-        /* Features */
-        .feature-icon svg { width: 24px; height: 24px; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 32px; }
-            .nav-links { display: none; }
-            .hero-features { grid-template-columns: 1fr; }
-        }
-    </style>
+/* Responsive */
+@media (max-width: 968px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+  .hero-visual { order: -1; }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .steps::before { display: none; }
+  .economics-grid { grid-template-columns: 1fr; }
+  .security-grid { grid-template-columns: repeat(2, 1fr); }
+  .contracts-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+}
+@media (max-width: 600px) {
+  .section { padding: 80px 0; }
+  .hero { padding: 120px 0 60px; }
+  .hero-stats { grid-template-columns: 1fr; gap: 16px; }
+  .steps { grid-template-columns: 1fr; }
+  .security-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .live-banner { flex-direction: column; align-items: flex-start; }
+  .live-banner-stats { width: 100%; justify-content: space-between; }
+  .audit-banner { flex-direction: column; text-align: center; }
+}
+</style>
 </head>
 <body>
-    <header>
-        <div class="container header-content">
-            <div class="logo">DHP</div>
-            <nav class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#contracts">Contracts</a>
-                <a href="#roadmap">Roadmap</a>
-                <a href="#cta">Launch</a>
-            </nav>
+
+<!-- NAV -->
+<nav class="nav">
+<div class="container nav-inner">
+  <a href="/" class="logo">
+    <div class="logo-mark">D</div>
+    <span>Diamond Hands</span>
+  </a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#economics">Economics</a>
+    <a href="#security">Security</a>
+    <a href="#contracts">Contracts</a>
+    <a href="#roadmap">Roadmap</a>
+  </div>
+  <a href="https://sepolia.basescan.org/address/0xee1e2343E513736f29ceeF24071B63874661273F" target="_blank" rel="noopener" class="nav-cta">Testnet App →</a>
+</div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+<div class="container">
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-status">
+        <span class="status-dot"></span>
+        <span>Live on Base Sepolia</span>
+      </div>
+      <h1>Paper hands fund <span class="gradient-text">diamond hands</span>.</h1>
+      <h1 style="font-size: clamp(28px, 4vw, 44px); margin-top: 8px; color: var(--fg-soft); font-weight: 600;">On-chain. Forever.</h1>
+      <p class="hero-sub">A permissionless vault factory on Base. Every tax event pays holders as dividends and burns tokens. The longer you hold, the more you earn from those who don't.</p>
+
+      <div class="hero-ctas">
+        <a href="https://sepolia.basescan.org/address/0xee1e2343E513736f29ceeF24071B63874661273F" target="_blank" rel="noopener" class="btn btn-primary">
+          Launch Testnet
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol" target="_blank" rel="noopener" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          View Source
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">54</div>
+          <div class="stat-label">Tests passing</div>
         </div>
-    </header>
-
-    <header class="hero">
-        <div class="hero-badge"><span>Base Sepolia Deployed</span></div>
-        <h1>Diamond Hands Protocol</h1>
-        <p>A permissionless vault factory on Base Network where every deposit and withdrawal pays a tax that flows to holders as dividends and burns tokens forever. The longer you hold, the more you earn from those who don't.</p>
-        
-        <div class="hero-features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
-                        <path d="M12 22s8-4 12-4 8 4 12 4"/>
-                        <path d="M21 21l-6-6m2.1-5.4c3.9-3.9 3.9-10.29 0-14.1"/>
-                    </path>
-                </div>
-                <h3>Permissionless</h3>
-                <p>Anyone can deploy a vault for any ERC-20 token. No permissions required.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M8 12l4-4m4 4l4 4"/>
-                    </path>
-                </div>
-                <h3>Dividend Distribution</h3>
-                <p>Every tax event distributes dividends proportional to holdings. Holders earn from every transaction.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="3"/>
-                        <path d="M12 2v4l10 10"/>
-                    </path>
-                </div>
-                <h3>Protocol Fee</h3>
-                <p>0.5% of every tax goes to the protocol treasury. Community-owned and transparent.</p>
-            </div>
+        <div>
+          <div class="stat-num">3</div>
+          <div class="stat-label">Chains planned</div>
         </div>
-    </header>
-
-    <section class="features">
-        <h2>How It Works</h2>
-        <div class="hero-features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
-                        <path d="M12 22s8-4 12-4 8 4 12 4"/>
-                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0"/>
-                    </path>
-                </div>
-                <h3>Deposit & Earn</h3>
-                <p>Users deposit tokens into the vault. A portion of every deposit is taxed.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M8 12l4-4m4 4l4 4"/>
-                    </path>
-                </div>
-                <h3>Tax Distribution</h3>
-                <p>Every tax event splits: dividends to holders, 0.5% protocol fee, remainder burned.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="3"/>
-                        <path d="M14 2v4l10 10"/>
-                        <path d="M2 9l10 10"/>
-                    </path>
-                </div>
-                <h3>Claim Dividends</h3>
-                <p>Users can claim their accumulated dividends at any time. Paid in the underlying token.</p>
-            </div>
+        <div>
+          <div class="stat-num">0%</div>
+          <div class="stat-label">Admin keys (renounced)</div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <section class="contracts">
-        <div class="container">
-            <h2>Contracts</h2>
-            <div class="contracts-grid">
-                <div class="contract-card">
-                    <h3>DHPImplementation</h3>
-                    <p>Core vault logic with ERC20 share math, dividend distribution, and tax splits.</p>
-                    <div class="contract-address">0x562e4ECa55ccA4Bb411a81f2605F992C00395f0f</div>
-                </div>
-                <div class="contract-card">
-                    <h3>DHPFactory</h3>
-                    <p>Permissionless vault deployment via EIP-1167 clones. Registry of all vaults.</p>
-                    <div class="contract-address">0xee1e2343E513736f29ceeF24071B63874661273F</div>
-                </div>
-                <div class="contract-card">
-                    <h3>DHPFeeCollector</h3>
-                    <p>Accumulates 0.5% protocol fees from all vaults. Swappable per-token destination.</p>
-                    <div class="contract-address">0x11F41D72E8e612b94b831Df38B12F5Bc3D58D87C</div>
-                </div>
-            </div>
+    <!-- Hero visual: animated tax flow -->
+    <div class="hero-visual">
+      <div class="flow-title">Default Tax Split (5% entry / 10% exit, 70% div share)</div>
+      <div class="flow-diagram">
+        <div class="flow-row">
+          <div class="flow-icon deposit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+          <div>
+            <div class="flow-row-label">User deposit</div>
+            <div class="flow-row-desc">1,000 SPX in</div>
+          </div>
+          <div class="flow-row-value">1,000</div>
         </div>
-    </section>
+        <div class="flow-divider">5% tax applied</div>
+        <div class="flow-row">
+          <div class="flow-icon dividend">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+          </div>
+          <div>
+            <div class="flow-row-label">Dividends to holders</div>
+            <div class="flow-row-desc">35 SPX pro-rata</div>
+          </div>
+          <div class="flow-row-value" style="color: var(--accent);">+35</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-icon fee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          </div>
+          <div>
+            <div class="flow-row-label">Protocol fee (0.5%)</div>
+            <div class="flow-row-desc">→ DAO treasury</div>
+          </div>
+          <div class="flow-row-value" style="color: #b700ff;">+2.5</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-icon burn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8 6 8 10 12 14M12 14c0 4 2 8 6 8M12 14c-2 0-4-2-4-4M12 14c2-2 4-4 4-8"/></svg>
+          </div>
+          <div>
+            <div class="flow-row-label">Burned forever</div>
+            <div class="flow-row-desc">→ 0x…dEaD</div>
+          </div>
+          <div class="flow-row-value" style="color: var(--danger);">-12.5</div>
+        </div>
+        <div class="flow-divider">net to vault</div>
+        <div class="flow-row" style="border-color: var(--accent-dim); background: rgba(0, 255, 163, 0.05);">
+          <div class="flow-icon dividend" style="background: var(--accent); color: var(--bg);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
+          </div>
+          <div>
+            <div class="flow-row-label">User receives shares</div>
+            <div class="flow-row-desc">Backed by net + dividend pool</div>
+          </div>
+          <div class="flow-row-value" style="color: var(--accent);">950</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <section class="roadmap">
-        <div class="container">
-            <h2>Roadmap</h2>
-            <div class="roadmap-grid">
-                <div class="roadmap-item">
-                    <h3>Base Sepolia</h3>
-                    <p>Deployed & verified</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>Base Mainnet</h3>
-                    <p>Post-audit deployment</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>BNB Chain</h3>
-                    <p>Deployment planned</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>Ethereum Mainnet</h3>
-                    <p>Post-audit deployment</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>Robinhood Chain</h3>
-                    <p>Arbitrum Orbit deployment</p>
-                </div>
-            </div>
-        </section>
+  <!-- Live banner -->
+  <div class="live-banner">
+    <div class="live-banner-left">
+      <h4>🔴 Base Sepolia Testnet — Live now</h4>
+      <p>3 contracts deployed, Sourcify-verified, smoke-tested. Try a deposit, claim dividends, watch the burn.</p>
+    </div>
+    <div class="live-banner-stats">
+      <div class="live-stat">Vaults<strong>3</strong></div>
+      <div class="live-stat">Verified<strong style="color: var(--accent);">✓</strong></div>
+      <div class="live-stat">Tests<strong>54/54</strong></div>
+    </div>
+  </div>
+</div>
+</header>
 
-        <section class="cta">
-            <h2>Launch Soon</h2>
-            <p>Diamond Hands Protocol launching on Base Sepolia. Multi-chain deployment following audit completion.</p>
-            <a href="#" class="cta-btn">Learn More</a>
-        </section>
-    </footer>
+<!-- VIDEO -->
+<section class="section video-section">
+<div class="container">
+  <div class="section-header">
+    <div class="eyebrow">Watch</div>
+    <h2>See it in action</h2>
+    <p style="max-width: 600px; margin: 0 auto;">A 2-minute walkthrough of how the protocol works, why diamond hands get paid, and what makes the design permissionless.</p>
+  </div>
+
+  <!-- Video embed slot — drop your MP4/YouTube embed here -->
+  <div class="video-wrapper" id="video-embed" onclick="document.getElementById('video-embed').innerHTML = '<iframe width=&quot;100%&quot; height=&quot;100%&quot; src=&quot;https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&quot; title=&quot;Diamond Hands Protocol Explainer&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen style=&quot;border:0;&quot;></iframe>'">
+    <div class="video-placeholder">
+      <div class="video-icon-large">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <h3>Explainer video</h3>
+      <p>Click to play — replace with your YouTube/Vimeo embed</p>
+    </div>
+  </div>
+  <p class="video-note">Want to embed? Replace the placeholder iframe URL above with your video ID. Or drop in an &lt;iframe src="..."&gt; directly.</p>
+</div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+<div class="container">
+  <div class="section-header">
+    <div class="eyebrow">How it works</div>
+    <h2>Four steps. No admin keys.</h2>
+    <p style="max-width: 600px; margin: 0 auto;">A vault is a self-contained contract. Anyone can deploy one. Once deployed, no one — not the team, not the DAO — can change its rules.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Deploy</h3>
+      <p>Anyone calls the factory with a token address and a tax config. A new vault is cloned via EIP-1167 in a single transaction.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Deposit</h3>
+      <p>Users deposit the underlying token. A tax (e.g., 5%) is taken. Shares are minted pro-rata to the net amount.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Accrue</h3>
+      <p>The tax is split: dividends flow to existing shareholders, 0.5% to the protocol treasury, remainder burned forever.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Claim & exit</h3>
+      <p>At any time, claim your share of the dividend pool. Exit with the redeem flow — exit tax applies, more dividends accrue, more tokens burn.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ECONOMICS -->
+<section class="section" id="economics" style="background: var(--bg-soft);">
+<div class="container">
+  <div class="section-header">
+    <div class="eyebrow">Token economics</div>
+    <h2>The split is the point</h2>
+    <p style="max-width: 600px; margin: 0 auto;">Every tax event has a default split that's set at vault creation. The split is immutable. Here's the default for the first vault (SPX6900):</p>
+  </div>
+
+  <div class="economics-grid">
+    <div class="econ-card">
+      <div class="econ-label">Entry tax</div>
+      <div class="econ-value">5%</div>
+      <div class="econ-desc">Applied on every deposit. Up to 10% configurable per vault.</div>
+    </div>
+    <div class="econ-card">
+      <div class="econ-label">Exit tax</div>
+      <div class="econ-value">10%</div>
+      <div class="econ-desc">Applied on every withdraw. Up to 25% configurable per vault.</div>
+    </div>
+    <div class="econ-card">
+      <div class="econ-label">Dividend share</div>
+      <div class="econ-value">70%</div>
+      <div class="econ-desc">Of every tax flows to existing holders pro-rata.</div>
+    </div>
+  </div>
+
+  <div class="econ-bar" style="margin-bottom: 16px;">
+    <div class="econ-bar-seg dividend" style="width: 70%;">70% Holders</div>
+    <div class="econ-bar-seg fee" style="width: 5%;">5%</div>
+    <div class="econ-bar-seg burn" style="width: 25%;">25% Burn</div>
+  </div>
+  <div class="econ-legend">
+    <div class="econ-legend-item"><span class="econ-legend-dot dividend"></span> Dividends to holders</div>
+    <div class="econ-legend-item"><span class="econ-legend-dot fee"></span> Protocol fee → DAO</div>
+    <div class="econ-legend-item"><span class="econ-legend-dot burn"></span> Burned forever</div>
+  </div>
+</div>
+</section>
+
+<!-- SECURITY -->
+<section class="section" id="security">
+<div class="container">
+  <div class="section-header">
+    <div class="eyebrow">Security</div>
+    <h2>Built to be left alone</h2>
+    <p style="max-width: 600px; margin: 0 auto;">No admin keys survive deployment. No pause function. No upgrade path. The contract is finished the moment it's live.</p>
+  </div>
+
+  <div class="security-grid">
+    <div class="security-card">
+      <div class="security-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg>
+      </div>
+      <div class="security-num">54/54</div>
+      <div class="security-label">Tests passing</div>
+    </div>
+    <div class="security-card">
+      <div class="security-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 12-4 8 4 12 4M3 12l9-9 9 9M5 10v10a1 1 0 001 1h12a1 1 0 001-1V10"/></svg>
+      </div>
+      <div class="security-num">3/3</div>
+      <div class="security-label">Sourcify verified</div>
+    </div>
+    <div class="security-card">
+      <div class="security-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 8l6-1z"/></svg>
+      </div>
+      <div class="security-num">OZ v5.1</div>
+      <div class="security-label">Battle-tested primitives</div>
+    </div>
+    <div class="security-card">
+      <div class="security-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1l9 4v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4z"/></svg>
+      </div>
+      <div class="security-num">0</div>
+      <div class="security-label">Admin keys (renounced)</div>
+    </div>
+  </div>
+
+  <div class="audit-banner">
+    <div class="audit-banner-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+    </div>
+    <div class="audit-banner-content">
+      <h3>Self-audit complete · External audit RFP out</h3>
+      <p>2 critical, 4 high, 7 medium findings documented. RFP for $15–30K tier-2 firm sent. No mainnet until audit clears.</p>
+    </div>
+    <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/feat/v1-core-contracts/SELF_AUDIT.md" target="_blank" rel="noopener" class="btn btn-secondary audit-banner-btn">
+      Read report
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+</section>
+
+<!-- CONTRACTS -->
+<section class="section" id="contracts" style="background: var(--bg-soft);">
+<div class="container">
+  <div class="section-header">
+    <div class="eyebrow">Contracts</div>
+    <h2>Live on Base Sepolia</h2>
+    <p style="max-width: 600px; margin: 0 auto;">All three contracts are deployed and Sourcify-verified. Addresses are immutable — they will be the same on mainnet.</p>
+  </div>
+
+  <div class="contracts-grid">
+    <div class="contract-card">
+      <div class="contract-header">
+        <h3>DHPImplementation</h3>
+        <span class="contract-badge">✓ Verified</span>
+      </div>
+      <p>The vault logic: ERC-20 share math, dividend distribution, tax splits, anti-FOT guard. Deployed once; cloned per token.</p>
+      <div class="contract-address">
+        <span>0x562e…95f0f</span>
+        <a href="https://sepolia.basescan.org/address/0x562e4ECa55ccA4Bb411a81f2605F992C00395f0f" target="_blank" rel="noopener" class="copy-btn">View ↗</a>
+      </div>
+    </div>
+    <div class="contract-card">
+      <div class="contract-header">
+        <h3>DHPFactory</h3>
+        <span class="contract-badge">✓ Verified</span>
+      </div>
+      <p>Permissionless deployment of vaults via EIP-1167 clones. Registry of all vaults with token metadata.</p>
+      <div class="contract-address">
+        <span>0xee1e…1273F</span>
+        <a href="https://sepolia.basescan.org/address/0xee1e2343E513736f29ceeF24071B63874661273F" target="_blank" rel="noopener" class="copy-btn">View ↗</a>
+      </div>
+    </div>
+    <div class="contract-card">
+      <div class="contract-header">
+        <h3>DHPFeeCollector</h3>
+        <span class="contract-badge">✓ Verified</span>
+      </div>
+      <p>Accumulates the 0.5% protocol fee from every vault. Per-token sweep destinations, DAO-controlled.</p>
+      <div class="contract-address">
+        <span>0x11F4…D87C</span>
+        <a href="https://sepolia.basescan.org/address/0x11F41D72E8e612b94b831Df38B12F5Bc3D58D87C" target="_blank" rel="noopener" class="copy-btn">View ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ROADMAP -->
+<section class="section" id="roadmap">
+<div class="container">
+  <div class="section-header">
+    <div class="eyebrow">Roadmap</div>
+    <h2>From testnet to wherever you are</h2>
+    <p style="max-width: 600px; margin: 0 auto;">The protocol is chain-agnostic. Same addresses, same logic, wherever you want to hold.</p>
+  </div>
+
+  <div class="roadmap-timeline">
+    <div class="roadmap-item">
+      <div class="roadmap-dot done"></div>
+      <div class="roadmap-content">
+        <span class="roadmap-tag done">Shipped</span>
+        <h3>Base Sepolia testnet</h3>
+        <p>3 contracts deployed, 54/54 tests passing, smoke-tested with real deposits + dividend claims. September 2026.</p>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot active"></div>
+      <div class="roadmap-content">
+        <span class="roadmap-tag active">In progress</span>
+        <h3>External audit (Spearbit / Sherlock / ChainSec)</h3>
+        <p>RFP sent. $15–30K engagement, 2–4 week turnaround. Fixes from self-audit landed in parallel.</p>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot"></div>
+      <div class="roadmap-content">
+        <span class="roadmap-tag upcoming">Q4 2026</span>
+        <h3>Base mainnet + first vault (SPX6900)</h3>
+        <p>Post-audit deployment. Launch the first community vault for SPX6900 with default 5% / 10% / 70% config. Factory renounced.</p>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot"></div>
+      <div class="roadmap-content">
+        <span class="roadmap-tag upcoming">Q1 2027</span>
+        <h3>BNB Chain + Ethereum L1</h3>
+        <p>Same addresses, same bytecode, fresh chains. SPX6900 + a curated list of partner communities. The Graph subgraph for indexing.</p>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot"></div>
+      <div class="roadmap-content">
+        <span class="roadmap-tag upcoming">Later</span>
+        <h3>Robinhood Chain (Arbitrum Orbit) + more</h3>
+        <p>Arbitrum Orbit deployments for chains that want a sovereign L2 with DHP as canonical infrastructure.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section">
+<div class="container">
+  <div class="cta-content">
+    <h2>Try it. Break it. Tell us.</h2>
+    <p>The testnet is live. Deposit fake SPX, claim real dividends, watch the burn. Found a bug? Open an issue — we'll pay you.</p>
+    <div class="cta-buttons">
+      <a href="https://sepolia.basescan.org/address/0xee1e2343E513736f29ceeF24071B63874661273F" target="_blank" rel="noopener" class="btn btn-primary">
+        Open testnet
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol" target="_blank" rel="noopener" class="btn btn-secondary">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        Read the code
+      </a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-mark">D</div>
+        <span>Diamond Hands</span>
+      </div>
+      <p>Permissionless vault factory. Paper hands fund diamond hands. On-chain. Forever.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Protocol</h4>
+      <ul>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#economics">Economics</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#contracts">Contracts</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Build</h4>
+      <ul>
+        <li><a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/feat/v1-core-contracts/SELF_AUDIT.md" target="_blank" rel="noopener">Audit report</a></li>
+        <li><a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/feat/v1-core-contracts/RFP_AUDIT.md" target="_blank" rel="noopener">RFP</a></li>
+        <li><a href="https://sepolia.basescan.org/address/0xee1e2343E513736f29ceeF24071B63874661273F" target="_blank" rel="noopener">BaseScan</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Community</h4>
+      <ul>
+        <li><a href="https://t.me/cryptosi" target="_blank" rel="noopener">Telegram</a></li>
+        <li><a href="https://x.com/cryptosidao" target="_blank" rel="noopener">Twitter / X</a></li>
+        <li><a href="https://github.com/CryptoSI-DAO" target="_blank" rel="noopener">GitHub org</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 CryptoSI DAO · MIT licensed</div>
+    <div>
+      <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/feat/v1-core-contracts/SECURITY.md" target="_blank" rel="noopener">Security</a>
+      <span style="margin: 0 8px;">·</span>
+      Built with care. Renounced at launch.
+    </div>
+  </div>
+</div>
+</footer>
+
+<script>
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (href === '#' || href === '#video-embed') return;
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Nav background on scroll
+const nav = document.querySelector('.nav');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll > 50) {
+    nav.style.background = 'rgba(6, 6, 10, 0.9)';
+  } else {
+    nav.style.background = 'rgba(6, 6, 10, 0.7)';
+  }
+  lastScroll = currentScroll;
+});
+
+// Animated stat numbers on scroll into view
+const stats = document.querySelectorAll('.stat-num, .security-num');
+const animateNumber = (el) => {
+  const text = el.textContent;
+  const match = text.match(/(\d+)/);
+  if (!match) return;
+  const target = parseInt(match[0]);
+  const suffix = text.replace(match[0], '');
+  let current = 0;
+  const duration = 1500;
+  const stepTime = 30;
+  const steps = duration / stepTime;
+  const increment = target / steps;
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
+    }
+    el.textContent = Math.floor(current) + suffix;
+  }, stepTime);
+};
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.dataset.animated) {
+      entry.target.dataset.animated = 'true';
+      animateNumber(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+stats.forEach(s => statObserver.observe(s));
+</script>
+
 </body>
 </html>
