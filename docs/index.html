@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Diamond Hands Protocol — Paper hands fund diamond hands. On-chain. Forever.</title>
 <meta name="description" content="A permissionless vault factory on Base. Every tax event pays holders as dividends and burns tokens. The longer you hold, the more you earn from those who don't.">
+<meta name="theme-color" content="#06060a">
+<meta name="color-scheme" content="dark light">
 <meta property="og:title" content="Diamond Hands Protocol">
 <meta property="og:description" content="Paper hands fund diamond hands. On-chain. Forever.">
 <meta property="og:type" content="website">
@@ -13,7 +15,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   THEME TOKENS
+   ============================================================ */
 :root {
+  /* Dark (default) */
   --bg: #06060a;
   --bg-soft: #0d0d14;
   --bg-card: #11111a;
@@ -30,34 +36,69 @@
   --warning: #ffb547;
   --gradient-1: linear-gradient(135deg, #00ffa3 0%, #00d4ff 100%);
   --gradient-2: linear-gradient(135deg, #b700ff 0%, #00ffa3 100%);
-  --gradient-dark: linear-gradient(180deg, #06060a 0%, #0a0a12 100%);
+  --nav-bg: rgba(6, 6, 10, 0.7);
+  --nav-bg-scrolled: rgba(6, 6, 10, 0.92);
+  --code-bg: #0a0a12;
+  --selection-bg: #00ffa3;
+  --selection-fg: #06060a;
+  color-scheme: dark;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+[data-theme="light"] {
+  --bg: #fafafa;
+  --bg-soft: #f3f3f7;
+  --bg-card: #ffffff;
+  --bg-elevated: #ffffff;
+  --border: #e5e5eb;
+  --border-strong: #cfcfd7;
+  --fg: #0a0a0f;
+  --fg-soft: #4a4a5a;
+  --muted: #6e6e82;
+  --accent: #00b87a;
+  --accent-dim: #009060;
+  --accent-glow: rgba(0, 184, 122, 0.15);
+  --danger: #d63a55;
+  --warning: #d68a1f;
+  --gradient-1: linear-gradient(135deg, #00b87a 0%, #00d4ff 100%);
+  --gradient-2: linear-gradient(135deg, #b700ff 0%, #00b87a 100%);
+  --nav-bg: rgba(250, 250, 250, 0.8);
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.95);
+  --code-bg: #f3f3f7;
+  --selection-bg: #00b87a;
+  --selection-fg: #ffffff;
+  color-scheme: light;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
   color: var(--fg);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
 }
+img, svg, video { max-width: 100%; display: block; }
+::selection { background: var(--selection-bg); color: var(--selection-fg); }
 
-/* Selection */
-::selection { background: var(--accent); color: var(--bg); }
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 5px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
 
-/* Layout */
+/* ============================================================
+   LAYOUT
+   ============================================================ */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .section { padding: 120px 0; position: relative; }
 .section-narrow { padding: 80px 0; }
-.section-header { text-align: center; margin-bottom: 80px; }
+.section-header { text-align: center; margin-bottom: 80px; max-width: 700px; margin-left: auto; margin-right: auto; }
 .eyebrow {
   display: inline-block;
   font-size: 12px;
@@ -81,29 +122,81 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
-/* Navigation */
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.2;
+}
+.btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+.btn-primary:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--accent-glow);
+  filter: brightness(1.1);
+}
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--fg);
+  border-color: var(--border);
+}
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+.btn-ghost { color: var(--fg-soft); padding: 14px 16px; }
+.btn-ghost:hover { color: var(--fg); }
+.btn-block { width: 100%; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
 .nav {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 100;
-  padding: 20px 0;
-  background: rgba(6, 6, 10, 0.7);
+  padding: 16px 0;
+  background: var(--nav-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.nav.scrolled { background: var(--nav-bg-scrolled); }
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
 .logo {
   display: flex;
   align-items: center;
   gap: 12px;
   font-weight: 700;
   font-size: 18px;
+  color: var(--fg);
 }
 .logo-mark {
   width: 32px;
@@ -117,14 +210,42 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   font-weight: 800;
   font-size: 14px;
   letter-spacing: -0.02em;
+  flex-shrink: 0;
 }
-.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
 .nav-links a {
   color: var(--fg-soft);
   font-size: 14px;
   font-weight: 500;
 }
 .nav-links a:hover { color: var(--fg); }
+
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+.theme-toggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--fg-soft);
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle svg { width: 18px; height: 18px; }
+.theme-toggle .sun { display: none; }
+.theme-toggle .moon { display: block; }
+[data-theme="light"] .theme-toggle .sun { display: block; }
+[data-theme="light"] .theme-toggle .moon { display: none; }
+
 .nav-cta {
   background: var(--accent);
   color: var(--bg);
@@ -132,13 +253,57 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   border-radius: 8px;
   font-weight: 600;
   font-size: 14px;
+  white-space: nowrap;
 }
-.nav-cta:hover { background: #1affb4; transform: translateY(-1px); }
+.nav-cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
-/* Hero */
+.nav-menu-btn {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.nav-menu-btn svg { width: 18px; height: 18px; }
+
+/* Mobile menu */
+.mobile-menu {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: var(--nav-bg-scrolled);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px 24px;
+  display: none;
+  z-index: 99;
+  flex-direction: column;
+  gap: 4px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: var(--fg-soft);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+.mobile-menu a:hover { background: var(--bg-card); color: var(--fg); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
 .hero {
   min-height: 100vh;
-  padding: 160px 0 80px;
+  padding: 140px 0 80px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -147,24 +312,12 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 .hero::before {
   content: '';
   position: absolute;
-  top: 10%;
-  right: -10%;
-  width: 800px;
-  height: 800px;
+  top: 10%; right: -10%;
+  width: min(800px, 80vw);
+  height: min(800px, 80vw);
   background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
   filter: blur(80px);
   z-index: 0;
-  pointer-events: none;
-}
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 200px;
-  background: linear-gradient(180deg, transparent, var(--bg));
-  z-index: 1;
   pointer-events: none;
 }
 .hero-grid {
@@ -196,80 +349,67 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   background: var(--accent);
   box-shadow: 0 0 8px var(--accent);
   animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
 }
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
 }
-.hero h1 { margin-bottom: 24px; }
-.hero-sub {
-  font-size: clamp(18px, 2vw, 22px);
+.hero h1 { margin-bottom: 16px; }
+.hero-tagline {
+  font-size: clamp(20px, 2.5vw, 28px);
   color: var(--fg-soft);
+  font-weight: 500;
+  margin-bottom: 32px;
+  max-width: 600px;
+  line-height: 1.3;
+}
+.hero-sub {
+  font-size: clamp(16px, 1.8vw, 18px);
+  color: var(--muted);
   margin-bottom: 40px;
-  max-width: 560px;
+  max-width: 540px;
+  line-height: 1.7;
 }
 .hero-ctas {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   margin-bottom: 48px;
   flex-wrap: wrap;
 }
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 24px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 15px;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  border: 1px solid transparent;
-}
-.btn-primary {
-  background: var(--accent);
-  color: var(--bg);
-}
-.btn-primary:hover { background: #1affb4; transform: translateY(-2px); box-shadow: 0 8px 24px var(--accent-glow); }
-.btn-secondary {
-  background: var(--bg-card);
-  color: var(--fg);
-  border-color: var(--border);
-}
-.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-.btn-ghost { color: var(--fg-soft); padding: 14px 16px; }
-.btn-ghost:hover { color: var(--fg); }
-.btn svg { width: 16px; height: 16px; }
 .hero-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 24px;
   padding-top: 32px;
   border-top: 1px solid var(--border);
 }
 .stat-num {
-  font-size: 28px;
+  font-size: clamp(24px, 3vw, 32px);
   font-weight: 700;
   color: var(--fg);
   margin-bottom: 4px;
   font-feature-settings: "tnum";
+  line-height: 1;
 }
 .stat-label {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 500;
+  line-height: 1.3;
 }
 
-/* Hero Visual — Animated Tax Flow */
+/* Hero Visual */
 .hero-visual {
   position: relative;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 24px;
-  padding: 32px;
+  padding: clamp(20px, 3vw, 32px);
   overflow: hidden;
+  transition: all 0.3s ease;
 }
 .hero-visual::before {
   content: '';
@@ -279,61 +419,74 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   pointer-events: none;
 }
 .flow-title {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 20px;
   font-weight: 600;
+  text-align: center;
 }
 .flow-diagram {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
   position: relative;
 }
 .flow-row {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px 20px;
+  gap: 12px;
+  padding: 14px 16px;
   background: var(--bg-soft);
   border: 1px solid var(--border);
   border-radius: 12px;
   transition: all 0.3s ease;
 }
-.flow-row:hover { border-color: var(--accent-dim); }
+.flow-row:hover { border-color: var(--accent-dim); transform: translateX(2px); }
+.flow-row.highlight {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+}
 .flow-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
+.flow-icon svg { width: 18px; height: 18px; }
 .flow-icon.deposit { background: rgba(0, 212, 255, 0.12); color: #00d4ff; }
 .flow-icon.dividend { background: rgba(0, 255, 163, 0.12); color: var(--accent); }
 .flow-icon.fee { background: rgba(183, 0, 255, 0.12); color: #b700ff; }
 .flow-icon.burn { background: rgba(255, 84, 112, 0.12); color: var(--danger); }
-.flow-row-label { font-size: 13px; font-weight: 600; }
-.flow-row-desc { font-size: 12px; color: var(--muted); }
-.flow-row-value { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 14px; }
+.flow-icon.final { background: var(--accent); color: var(--bg); }
+.flow-row-text { flex: 1; min-width: 0; }
+.flow-row-label { font-size: 13px; font-weight: 600; color: var(--fg); }
+.flow-row-desc { font-size: 11px; color: var(--muted); }
+.flow-row-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 .flow-divider {
   text-align: center;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 600;
-  margin: -8px 0;
-  padding-left: 28px;
+  padding: 0 0 0 24px;
 }
 .flow-divider::before {
   content: '';
   display: inline-block;
   width: 2px;
-  height: 16px;
+  height: 12px;
   background: linear-gradient(180deg, transparent, var(--accent-dim), transparent);
   vertical-align: middle;
   margin-right: 8px;
@@ -350,6 +503,8 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   gap: 24px;
   margin-top: 64px;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 .live-banner-left { flex: 1; min-width: 200px; }
 .live-banner h4 { font-size: 16px; margin-bottom: 4px; }
@@ -363,10 +518,10 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 .live-stat { color: var(--muted); }
 .live-stat strong { color: var(--accent); font-weight: 600; display: block; font-size: 16px; }
 
-/* Video Section */
-.video-section {
-  background: var(--bg-soft);
-}
+/* ============================================================
+   VIDEO
+   ============================================================ */
+.video-section { background: var(--bg-soft); }
 .video-wrapper {
   position: relative;
   max-width: 900px;
@@ -382,11 +537,15 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.video-wrapper:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.video-wrapper:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
 .video-placeholder {
   text-align: center;
   color: var(--muted);
-  padding: 40px;
+  padding: 24px;
 }
 .video-icon-large {
   width: 80px;
@@ -399,6 +558,7 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   justify-content: center;
   color: var(--bg);
   transition: all 0.3s ease;
+  box-shadow: 0 0 40px var(--accent-glow);
 }
 .video-wrapper:hover .video-icon-large { transform: scale(1.1); }
 .video-icon-large svg { width: 32px; height: 32px; margin-left: 4px; }
@@ -411,7 +571,9 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   color: var(--muted);
 }
 
-/* How It Works */
+/* ============================================================
+   HOW IT WORKS
+   ============================================================ */
 .steps {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -448,11 +610,15 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   color: var(--accent);
   position: relative;
   z-index: 2;
+  font-family: 'JetBrains Mono', monospace;
 }
 .step h3 { font-size: 18px; margin-bottom: 8px; }
-.step p { font-size: 14px; color: var(--muted); }
+.step p { font-size: 14px; color: var(--muted); line-height: 1.5; }
 
-/* Token Economics */
+/* ============================================================
+   ECONOMICS
+   ============================================================ */
+.economics-section { background: var(--bg-soft); }
 .economics-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -466,7 +632,9 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   padding: 32px;
   position: relative;
   overflow: hidden;
+  transition: all 0.2s ease;
 }
+.econ-card:hover { border-color: var(--accent-dim); transform: translateY(-2px); }
 .econ-card::before {
   content: '';
   position: absolute;
@@ -483,12 +651,14 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   margin-bottom: 8px;
 }
 .econ-value {
-  font-size: 36px;
+  font-size: clamp(32px, 4vw, 44px);
   font-weight: 700;
   margin-bottom: 8px;
   font-family: 'JetBrains Mono', monospace;
+  line-height: 1;
+  color: var(--fg);
 }
-.econ-desc { font-size: 14px; color: var(--fg-soft); }
+.econ-desc { font-size: 14px; color: var(--fg-soft); line-height: 1.5; }
 
 .econ-bar {
   display: flex;
@@ -497,22 +667,26 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   overflow: hidden;
   background: var(--bg-soft);
   border: 1px solid var(--border);
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 .econ-bar-seg {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13px;
-  color: var(--bg);
+  color: white;
   position: relative;
   transition: all 0.3s ease;
 }
-.econ-bar-seg:hover { filter: brightness(1.2); }
-.econ-bar-seg.dividend { background: var(--accent); }
-.econ-bar-seg.fee { background: #b700ff; color: white; }
-.econ-bar-seg.burn { background: var(--danger); color: white; }
+.econ-bar-seg:hover { filter: brightness(1.15); }
+.econ-bar-seg.dividend { background: var(--accent); color: var(--bg); }
+.econ-bar-seg.fee { background: #b700ff; }
+.econ-bar-seg.burn { background: var(--danger); }
+.econ-bar-seg span { display: none; }
+@media (min-width: 600px) {
+  .econ-bar-seg span { display: inline; }
+}
 
 .econ-legend {
   display: flex;
@@ -520,13 +694,25 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   gap: 32px;
   flex-wrap: wrap;
 }
-.econ-legend-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--fg-soft); }
-.econ-legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+.econ-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--fg-soft);
+}
+.econ-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
 .econ-legend-dot.dividend { background: var(--accent); }
 .econ-legend-dot.fee { background: #b700ff; }
 .econ-legend-dot.burn { background: var(--danger); }
 
-/* Security / Trust */
+/* ============================================================
+   SECURITY
+   ============================================================ */
 .security-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -541,7 +727,11 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   text-align: center;
   transition: all 0.2s ease;
 }
-.security-card:hover { border-color: var(--accent-dim); transform: translateY(-2px); }
+.security-card:hover {
+  border-color: var(--accent-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
 .security-icon {
   width: 48px;
   height: 48px;
@@ -554,7 +744,7 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   color: var(--accent);
 }
 .security-icon svg { width: 24px; height: 24px; }
-.security-num { font-size: 24px; font-weight: 700; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; }
+.security-num { font-size: 22px; font-weight: 700; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; color: var(--fg); }
 .security-label { font-size: 13px; color: var(--muted); }
 
 .audit-banner {
@@ -582,9 +772,11 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 .audit-banner-content { flex: 1; min-width: 200px; }
 .audit-banner h3 { font-size: 18px; margin-bottom: 4px; }
 .audit-banner p { font-size: 14px; margin: 0; }
-.audit-banner-btn { white-space: nowrap; }
 
-/* Contracts */
+/* ============================================================
+   CONTRACTS
+   ============================================================ */
+.contracts-section { background: var(--bg-soft); }
 .contracts-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -597,8 +789,8 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   padding: 28px;
   transition: all 0.3s ease;
 }
-.contract-card:hover { border-color: var(--accent-dim); }
-.contract-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.contract-card:hover { border-color: var(--accent-dim); transform: translateY(-2px); }
+.contract-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
 .contract-badge {
   background: var(--accent);
   color: var(--bg);
@@ -607,11 +799,12 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   padding: 4px 8px;
   border-radius: 4px;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 .contract-card h3 { font-size: 20px; }
-.contract-card p { font-size: 14px; margin-bottom: 20px; }
+.contract-card > p { font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
 .contract-address {
-  background: var(--bg);
+  background: var(--code-bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 14px;
@@ -623,20 +816,28 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  transition: border-color 0.2s ease;
 }
+.contract-address:hover { border-color: var(--accent-dim); }
 .copy-btn {
-  background: var(--bg-soft);
+  background: var(--bg-elevated);
   border: 1px solid var(--border);
   color: var(--fg-soft);
-  padding: 4px 8px;
+  padding: 4px 10px;
   border-radius: 6px;
   font-size: 11px;
+  font-weight: 600;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+  transition: all 0.2s ease;
 }
 .copy-btn:hover { color: var(--accent); border-color: var(--accent-dim); }
+.copy-btn.copied { color: var(--accent); border-color: var(--accent); }
 
-/* Roadmap */
+/* ============================================================
+   ROADMAP
+   ============================================================ */
 .roadmap-timeline {
   position: relative;
   max-width: 800px;
@@ -645,7 +846,7 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 .roadmap-timeline::before {
   content: '';
   position: absolute;
-  left: 24px;
+  left: 19px;
   top: 0;
   bottom: 0;
   width: 2px;
@@ -659,26 +860,29 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 .roadmap-item:last-child { margin-bottom: 0; }
 .roadmap-dot {
   position: absolute;
-  left: 16px;
-  top: 4px;
+  left: 11px;
+  top: 8px;
   width: 18px;
   height: 18px;
   border-radius: 50%;
   background: var(--bg);
   border: 2px solid var(--border-strong);
+  transition: all 0.3s ease;
 }
 .roadmap-dot.done { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
-.roadmap-dot.active { background: var(--warning); border-color: var(--warning); box-shadow: 0 0 12px rgba(255, 181, 71, 0.3); }
+.roadmap-dot.active { background: var(--warning); border-color: var(--warning); box-shadow: 0 0 12px rgba(255, 181, 71, 0.3); animation: pulse 2s ease-in-out infinite; }
 .roadmap-content {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 20px 24px;
+  transition: all 0.2s ease;
 }
+.roadmap-content:hover { border-color: var(--accent-dim); }
 .roadmap-tag {
   display: inline-block;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 3px 8px;
@@ -687,11 +891,13 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 }
 .roadmap-tag.done { background: var(--accent); color: var(--bg); }
 .roadmap-tag.active { background: var(--warning); color: var(--bg); }
-.roadmap-tag.upcoming { background: var(--bg-elevated); color: var(--fg-soft); }
+.roadmap-tag.upcoming { background: var(--bg-elevated); color: var(--fg-soft); border: 1px solid var(--border); }
 .roadmap-content h3 { font-size: 18px; margin-bottom: 4px; }
-.roadmap-content p { font-size: 14px; color: var(--muted); margin: 0; }
+.roadmap-content p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.5; }
 
-/* CTA */
+/* ============================================================
+   CTA
+   ============================================================ */
 .cta-section {
   text-align: center;
   background: var(--bg-soft);
@@ -704,8 +910,8 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
+  width: min(600px, 80vw);
+  height: min(600px, 80vw);
   background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
   filter: blur(60px);
   z-index: 0;
@@ -715,7 +921,9 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 .cta-content p { font-size: 18px; margin-bottom: 32px; }
 .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
-/* Footer */
+/* ============================================================
+   FOOTER
+   ============================================================ */
 .footer {
   background: var(--bg-soft);
   border-top: 1px solid var(--border);
@@ -730,7 +938,14 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 .footer-brand { max-width: 320px; }
 .footer-brand .logo { margin-bottom: 16px; }
 .footer-brand p { font-size: 14px; color: var(--muted); }
-.footer-col h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 16px; font-weight: 600; }
+.footer-col h4 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 16px;
+  font-weight: 700;
+}
 .footer-col ul { list-style: none; }
 .footer-col li { margin-bottom: 10px; }
 .footer-col a { color: var(--fg-soft); font-size: 14px; }
@@ -749,49 +964,138 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 .footer-bottom a { color: var(--muted); }
 .footer-bottom a:hover { color: var(--accent); }
 
-/* Responsive */
-@media (max-width: 968px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-  .hero-visual { order: -1; }
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+/* Large tablet / small desktop */
+@media (max-width: 1100px) {
+  .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .steps::before { display: none; }
-  .economics-grid { grid-template-columns: 1fr; }
+  .step:last-child { grid-column: 1 / -1; max-width: 50%; margin: 0 auto; }
+}
+
+/* Tablet */
+@media (max-width: 968px) {
+  .hero { min-height: auto; padding: 120px 0 60px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+  .hero-visual { order: -1; }
   .security-grid { grid-template-columns: repeat(2, 1fr); }
+  .economics-grid { grid-template-columns: 1fr; }
   .contracts-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .nav-links { display: none; }
   .nav-cta { display: none; }
-}
-@media (max-width: 600px) {
+  .nav-menu-btn { display: flex; }
   .section { padding: 80px 0; }
-  .hero { padding: 120px 0 60px; }
-  .hero-stats { grid-template-columns: 1fr; gap: 16px; }
+  .section-header { margin-bottom: 48px; }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .container { padding: 0 20px; }
+  .section { padding: 64px 0; }
+  .section-narrow { padding: 48px 0; }
+  .hero { padding: 100px 0 48px; }
+  .hero-status { font-size: 12px; padding: 5px 12px; }
+  .hero-ctas { flex-direction: column; width: 100%; }
+  .hero-ctas .btn { width: 100%; }
+  .hero-stats { grid-template-columns: 1fr; gap: 20px; text-align: center; }
+  .live-banner { flex-direction: column; align-items: flex-start; padding: 20px; }
+  .live-banner-stats { width: 100%; justify-content: space-between; gap: 16px; }
+  .live-stat { font-size: 12px; }
+  .live-stat strong { font-size: 14px; }
   .steps { grid-template-columns: 1fr; }
+  .step:last-child { max-width: 100%; }
+  .security-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .security-card { padding: 20px 12px; }
+  .security-num { font-size: 18px; }
+  .security-label { font-size: 11px; }
+  .econ-card { padding: 24px; }
+  .econ-bar { height: 50px; }
+  .econ-bar-seg { font-size: 11px; }
+  .econ-bar-seg span { display: inline; font-size: 10px; }
+  .econ-legend { gap: 16px; font-size: 13px; }
+  .contracts-grid { grid-template-columns: 1fr; }
+  .contract-card { padding: 20px; }
+  .contract-address { font-size: 11px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer { padding: 48px 0 24px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .cta-content p { font-size: 16px; }
+  .cta-buttons { flex-direction: column; width: 100%; }
+  .cta-buttons .btn { width: 100%; }
+  .audit-banner { padding: 20px; flex-direction: column; text-align: center; }
+  .audit-banner-btn { width: 100%; }
+  .roadmap-item { padding-left: 48px; }
+  .roadmap-timeline::before { left: 12px; }
+  .roadmap-dot { left: 4px; }
+  .flow-row { padding: 12px; }
+  .flow-row-value { font-size: 12px; }
+  .flow-row-label { font-size: 12px; }
+  .flow-row-desc { font-size: 10px; }
+  .flow-icon { width: 32px; height: 32px; }
+  .flow-icon svg { width: 16px; height: 16px; }
+  .nav-inner { gap: 8px; }
+  .logo span { display: none; }
+  .logo-mark { width: 36px; height: 36px; }
+  .logo { gap: 0; }
+  .hero-visual { padding: 20px; }
+  .video-icon-large { width: 64px; height: 64px; }
+  .video-icon-large svg { width: 26px; height: 26px; }
+}
+
+/* Extra small */
+@media (max-width: 400px) {
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+  .hero-stats { gap: 16px; }
   .security-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .live-banner { flex-direction: column; align-items: flex-start; }
-  .live-banner-stats { width: 100%; justify-content: space-between; }
-  .audit-banner { flex-direction: column; text-align: center; }
+  .live-banner-stats { flex-direction: column; gap: 8px; }
+}
+
+/* Print */
+@media print {
+  .nav, .hero::before, .cta-section::before, .theme-toggle, .video-wrapper { display: none; }
+  body { background: white; color: black; }
 }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="nav">
+<nav class="nav" id="nav">
 <div class="container nav-inner">
-  <a href="/" class="logo">
+  <a href="/" class="logo" aria-label="Diamond Hands Protocol home">
     <div class="logo-mark">D</div>
     <span>Diamond Hands</span>
   </a>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="#how">How it works</a>
     <a href="#economics">Economics</a>
     <a href="#security">Security</a>
     <a href="#contracts">Contracts</a>
     <a href="#roadmap">Roadmap</a>
   </div>
-  <a href="https://sepolia.basescan.org/address/0xee1e2343E513736f29ceeF24071B63874661273F" target="_blank" rel="noopener" class="nav-cta">Testnet App →</a>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <a href="https://sepolia.basescan.org/address/0xee1e2343E513736f29ceeF24071B63874661273F" target="_blank" rel="noopener" class="nav-cta">Testnet App →</a>
+    <button class="nav-menu-btn" id="navMenuBtn" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#how">How it works</a>
+  <a href="#economics">Economics</a>
+  <a href="#security">Security</a>
+  <a href="#contracts">Contracts</a>
+  <a href="#roadmap">Roadmap</a>
+  <a href="https://sepolia.basescan.org/address/0xee1e2343E513736f29ceeF24071B63874661273F" target="_blank" rel="noopener" style="color: var(--accent); font-weight: 600;">Testnet App →</a>
 </div>
 </nav>
 
@@ -805,13 +1109,13 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
         <span>Live on Base Sepolia</span>
       </div>
       <h1>Paper hands fund <span class="gradient-text">diamond hands</span>.</h1>
-      <h1 style="font-size: clamp(28px, 4vw, 44px); margin-top: 8px; color: var(--fg-soft); font-weight: 600;">On-chain. Forever.</h1>
+      <p class="hero-tagline">On-chain. Forever.</p>
       <p class="hero-sub">A permissionless vault factory on Base. Every tax event pays holders as dividends and burns tokens. The longer you hold, the more you earn from those who don't.</p>
 
       <div class="hero-ctas">
         <a href="https://sepolia.basescan.org/address/0xee1e2343E513736f29ceeF24071B63874661273F" target="_blank" rel="noopener" class="btn btn-primary">
           Launch Testnet
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
         <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol" target="_blank" rel="noopener" class="btn btn-secondary">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -821,29 +1125,28 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 
       <div class="hero-stats">
         <div>
-          <div class="stat-num">54</div>
+          <div class="stat-num" data-target="54">0</div>
           <div class="stat-label">Tests passing</div>
         </div>
         <div>
-          <div class="stat-num">3</div>
+          <div class="stat-num" data-target="3">0</div>
           <div class="stat-label">Chains planned</div>
         </div>
         <div>
-          <div class="stat-num">0%</div>
-          <div class="stat-label">Admin keys (renounced)</div>
+          <div class="stat-num" data-target="0" data-suffix="%">0%</div>
+          <div class="stat-label">Admin keys</div>
         </div>
       </div>
     </div>
 
-    <!-- Hero visual: animated tax flow -->
     <div class="hero-visual">
-      <div class="flow-title">Default Tax Split (5% entry / 10% exit, 70% div share)</div>
+      <div class="flow-title">Default Tax Split · 1,000 SPX deposit</div>
       <div class="flow-diagram">
         <div class="flow-row">
           <div class="flow-icon deposit">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
           </div>
-          <div>
+          <div class="flow-row-text">
             <div class="flow-row-label">User deposit</div>
             <div class="flow-row-desc">1,000 SPX in</div>
           </div>
@@ -852,19 +1155,19 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
         <div class="flow-divider">5% tax applied</div>
         <div class="flow-row">
           <div class="flow-icon dividend">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12"/></svg>
           </div>
-          <div>
+          <div class="flow-row-text">
             <div class="flow-row-label">Dividends to holders</div>
-            <div class="flow-row-desc">35 SPX pro-rata</div>
+            <div class="flow-row-desc">Pro-rata, claim anytime</div>
           </div>
           <div class="flow-row-value" style="color: var(--accent);">+35</div>
         </div>
         <div class="flow-row">
           <div class="flow-icon fee">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
           </div>
-          <div>
+          <div class="flow-row-text">
             <div class="flow-row-label">Protocol fee (0.5%)</div>
             <div class="flow-row-desc">→ DAO treasury</div>
           </div>
@@ -872,22 +1175,22 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
         </div>
         <div class="flow-row">
           <div class="flow-icon burn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8 6 8 10 12 14M12 14c0 4 2 8 6 8M12 14c-2 0-4-2-4-4M12 14c2-2 4-4 4-8"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg>
           </div>
-          <div>
+          <div class="flow-row-text">
             <div class="flow-row-label">Burned forever</div>
             <div class="flow-row-desc">→ 0x…dEaD</div>
           </div>
-          <div class="flow-row-value" style="color: var(--danger);">-12.5</div>
+          <div class="flow-row-value" style="color: var(--danger);">−12.5</div>
         </div>
-        <div class="flow-divider">net to vault</div>
-        <div class="flow-row" style="border-color: var(--accent-dim); background: rgba(0, 255, 163, 0.05);">
-          <div class="flow-icon dividend" style="background: var(--accent); color: var(--bg);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
+        <div class="flow-divider">net to user</div>
+        <div class="flow-row highlight">
+          <div class="flow-icon final">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
           </div>
-          <div>
+          <div class="flow-row-text">
             <div class="flow-row-label">User receives shares</div>
-            <div class="flow-row-desc">Backed by net + dividend pool</div>
+            <div class="flow-row-desc">Backed by net + div pool</div>
           </div>
           <div class="flow-row-value" style="color: var(--accent);">950</div>
         </div>
@@ -895,11 +1198,10 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
     </div>
   </div>
 
-  <!-- Live banner -->
   <div class="live-banner">
     <div class="live-banner-left">
       <h4>🔴 Base Sepolia Testnet — Live now</h4>
-      <p>3 contracts deployed, Sourcify-verified, smoke-tested. Try a deposit, claim dividends, watch the burn.</p>
+      <p>3 contracts deployed, Sourcify-verified, smoke-tested. Deposit, claim dividends, watch the burn.</p>
     </div>
     <div class="live-banner-stats">
       <div class="live-stat">Vaults<strong>3</strong></div>
@@ -919,8 +1221,7 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
     <p style="max-width: 600px; margin: 0 auto;">A 2-minute walkthrough of how the protocol works, why diamond hands get paid, and what makes the design permissionless.</p>
   </div>
 
-  <!-- Video embed slot — drop your MP4/YouTube embed here -->
-  <div class="video-wrapper" id="video-embed" onclick="document.getElementById('video-embed').innerHTML = '<iframe width=&quot;100%&quot; height=&quot;100%&quot; src=&quot;https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&quot; title=&quot;Diamond Hands Protocol Explainer&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen style=&quot;border:0;&quot;></iframe>'">
+  <div class="video-wrapper" id="videoEmbed" role="button" tabindex="0" aria-label="Play explainer video">
     <div class="video-placeholder">
       <div class="video-icon-large">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -929,7 +1230,7 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
       <p>Click to play — replace with your YouTube/Vimeo embed</p>
     </div>
   </div>
-  <p class="video-note">Want to embed? Replace the placeholder iframe URL above with your video ID. Or drop in an &lt;iframe src="..."&gt; directly.</p>
+  <p class="video-note">To embed: replace the <code style="background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-size: 12px;">onclick</code> in the HTML with your YouTube/Vimeo URL.</p>
 </div>
 </section>
 
@@ -946,29 +1247,29 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
     <div class="step">
       <div class="step-num">1</div>
       <h3>Deploy</h3>
-      <p>Anyone calls the factory with a token address and a tax config. A new vault is cloned via EIP-1167 in a single transaction.</p>
+      <p>Anyone calls the factory with a token and tax config. A new vault is cloned via EIP-1167 in a single transaction.</p>
     </div>
     <div class="step">
       <div class="step-num">2</div>
       <h3>Deposit</h3>
-      <p>Users deposit the underlying token. A tax (e.g., 5%) is taken. Shares are minted pro-rata to the net amount.</p>
+      <p>Users deposit the underlying token. A tax is taken. Shares are minted pro-rata to the net amount.</p>
     </div>
     <div class="step">
       <div class="step-num">3</div>
       <h3>Accrue</h3>
-      <p>The tax is split: dividends flow to existing shareholders, 0.5% to the protocol treasury, remainder burned forever.</p>
+      <p>The tax splits: dividends flow to existing holders, 0.5% to the DAO treasury, remainder burned forever.</p>
     </div>
     <div class="step">
       <div class="step-num">4</div>
       <h3>Claim & exit</h3>
-      <p>At any time, claim your share of the dividend pool. Exit with the redeem flow — exit tax applies, more dividends accrue, more tokens burn.</p>
+      <p>Claim dividends anytime. Exit with redeem — exit tax applies, more dividends accrue, more tokens burn.</p>
     </div>
   </div>
 </div>
 </section>
 
 <!-- ECONOMICS -->
-<section class="section" id="economics" style="background: var(--bg-soft);">
+<section class="section economics-section" id="economics">
 <div class="container">
   <div class="section-header">
     <div class="eyebrow">Token economics</div>
@@ -994,10 +1295,10 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
     </div>
   </div>
 
-  <div class="econ-bar" style="margin-bottom: 16px;">
-    <div class="econ-bar-seg dividend" style="width: 70%;">70% Holders</div>
-    <div class="econ-bar-seg fee" style="width: 5%;">5%</div>
-    <div class="econ-bar-seg burn" style="width: 25%;">25% Burn</div>
+  <div class="econ-bar">
+    <div class="econ-bar-seg dividend" style="width: 70%;"><span>70% Holders</span></div>
+    <div class="econ-bar-seg fee" style="width: 5%;"><span>5%</span></div>
+    <div class="econ-bar-seg burn" style="width: 25%;"><span>25% Burn</span></div>
   </div>
   <div class="econ-legend">
     <div class="econ-legend-item"><span class="econ-legend-dot dividend"></span> Dividends to holders</div>
@@ -1019,57 +1320,57 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   <div class="security-grid">
     <div class="security-card">
       <div class="security-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg>
       </div>
-      <div class="security-num">54/54</div>
+      <div class="security-num" data-target="54">0</div>
       <div class="security-label">Tests passing</div>
     </div>
     <div class="security-card">
       <div class="security-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 12-4 8 4 12 4M3 12l9-9 9 9M5 10v10a1 1 0 001 1h12a1 1 0 001-1V10"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 12-4 8 4 12 4M3 12l9-9 9 9M5 10v10a1 1 0 001 1h12a1 1 0 001-1V10"/></svg>
       </div>
-      <div class="security-num">3/3</div>
+      <div class="security-num" data-target="3">0</div>
       <div class="security-label">Sourcify verified</div>
     </div>
     <div class="security-card">
       <div class="security-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 8l6-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 8l6-1z"/></svg>
       </div>
       <div class="security-num">OZ v5.1</div>
       <div class="security-label">Battle-tested primitives</div>
     </div>
     <div class="security-card">
       <div class="security-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1l9 4v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1l9 4v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4z"/></svg>
       </div>
-      <div class="security-num">0</div>
+      <div class="security-num" data-target="0">0</div>
       <div class="security-label">Admin keys (renounced)</div>
     </div>
   </div>
 
   <div class="audit-banner">
     <div class="audit-banner-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
     </div>
     <div class="audit-banner-content">
       <h3>Self-audit complete · External audit RFP out</h3>
-      <p>2 critical, 4 high, 7 medium findings documented. RFP for $15–30K tier-2 firm sent. No mainnet until audit clears.</p>
+      <p>2 critical, 4 high, 7 medium findings documented. $15–30K tier-2 audit RFP sent. No mainnet until audit clears.</p>
     </div>
-    <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/feat/v1-core-contracts/SELF_AUDIT.md" target="_blank" rel="noopener" class="btn btn-secondary audit-banner-btn">
+    <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/feat/v1-core-contracts/SELF_AUDIT.md" target="_blank" rel="noopener" class="btn btn-secondary">
       Read report
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
   </div>
 </div>
 </section>
 
 <!-- CONTRACTS -->
-<section class="section" id="contracts" style="background: var(--bg-soft);">
+<section class="section contracts-section" id="contracts">
 <div class="container">
   <div class="section-header">
     <div class="eyebrow">Contracts</div>
     <h2>Live on Base Sepolia</h2>
-    <p style="max-width: 600px; margin: 0 auto;">All three contracts are deployed and Sourcify-verified. Addresses are immutable — they will be the same on mainnet.</p>
+    <p style="max-width: 600px; margin: 0 auto;">All three contracts deployed and Sourcify-verified. Same addresses will be used on mainnet.</p>
   </div>
 
   <div class="contracts-grid">
@@ -1078,10 +1379,10 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
         <h3>DHPImplementation</h3>
         <span class="contract-badge">✓ Verified</span>
       </div>
-      <p>The vault logic: ERC-20 share math, dividend distribution, tax splits, anti-FOT guard. Deployed once; cloned per token.</p>
-      <div class="contract-address">
-        <span>0x562e…95f0f</span>
-        <a href="https://sepolia.basescan.org/address/0x562e4ECa55ccA4Bb411a81f2605F992C00395f0f" target="_blank" rel="noopener" class="copy-btn">View ↗</a>
+      <p>The vault logic: ERC-20 share math, dividend distribution, tax splits, anti-FOT guard.</p>
+      <div class="contract-address" data-address="0x562e4ECa55ccA4Bb411a81f2605F992C00395f0f">
+        <span class="addr-text">0x562e4ECa55ccA4Bb411a81f2605F992C00395f0f</span>
+        <button class="copy-btn" data-copy="0x562e4ECa55ccA4Bb411a81f2605F992C00395f0f" aria-label="Copy address">Copy</button>
       </div>
     </div>
     <div class="contract-card">
@@ -1089,10 +1390,10 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
         <h3>DHPFactory</h3>
         <span class="contract-badge">✓ Verified</span>
       </div>
-      <p>Permissionless deployment of vaults via EIP-1167 clones. Registry of all vaults with token metadata.</p>
-      <div class="contract-address">
-        <span>0xee1e…1273F</span>
-        <a href="https://sepolia.basescan.org/address/0xee1e2343E513736f29ceeF24071B63874661273F" target="_blank" rel="noopener" class="copy-btn">View ↗</a>
+      <p>Permissionless deployment of vaults via EIP-1167 clones. Registry of all vaults.</p>
+      <div class="contract-address" data-address="0xee1e2343E513736f29ceeF24071B63874661273F">
+        <span class="addr-text">0xee1e2343E513736f29ceeF24071B63874661273F</span>
+        <button class="copy-btn" data-copy="0xee1e2343E513736f29ceeF24071B63874661273F" aria-label="Copy address">Copy</button>
       </div>
     </div>
     <div class="contract-card">
@@ -1100,10 +1401,10 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
         <h3>DHPFeeCollector</h3>
         <span class="contract-badge">✓ Verified</span>
       </div>
-      <p>Accumulates the 0.5% protocol fee from every vault. Per-token sweep destinations, DAO-controlled.</p>
-      <div class="contract-address">
-        <span>0x11F4…D87C</span>
-        <a href="https://sepolia.basescan.org/address/0x11F41D72E8e612b94b831Df38B12F5Bc3D58D87C" target="_blank" rel="noopener" class="copy-btn">View ↗</a>
+      <p>Accumulates the 0.5% protocol fee from every vault. DAO-controlled sweep destinations.</p>
+      <div class="contract-address" data-address="0x11F41D72E8e612b94b831Df38B12F5Bc3D58D87C">
+        <span class="addr-text">0x11F41D72E8e612b94b831Df38B12F5Bc3D58D87C</span>
+        <button class="copy-btn" data-copy="0x11F41D72E8e612b94b831Df38B12F5Bc3D58D87C" aria-label="Copy address">Copy</button>
       </div>
     </div>
   </div>
@@ -1133,7 +1434,7 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
       <div class="roadmap-content">
         <span class="roadmap-tag active">In progress</span>
         <h3>External audit (Spearbit / Sherlock / ChainSec)</h3>
-        <p>RFP sent. $15–30K engagement, 2–4 week turnaround. Fixes from self-audit landed in parallel.</p>
+        <p>RFP sent. $15–30K engagement, 2–4 week turnaround. Self-audit fixes landing in parallel.</p>
       </div>
     </div>
     <div class="roadmap-item">
@@ -1141,7 +1442,7 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
       <div class="roadmap-content">
         <span class="roadmap-tag upcoming">Q4 2026</span>
         <h3>Base mainnet + first vault (SPX6900)</h3>
-        <p>Post-audit deployment. Launch the first community vault for SPX6900 with default 5% / 10% / 70% config. Factory renounced.</p>
+        <p>Post-audit deployment. Launch the first community vault for SPX6900 with default 5% / 10% / 70% config.</p>
       </div>
     </div>
     <div class="roadmap-item">
@@ -1149,14 +1450,14 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
       <div class="roadmap-content">
         <span class="roadmap-tag upcoming">Q1 2027</span>
         <h3>BNB Chain + Ethereum L1</h3>
-        <p>Same addresses, same bytecode, fresh chains. SPX6900 + a curated list of partner communities. The Graph subgraph for indexing.</p>
+        <p>Same addresses, same bytecode, fresh chains. SPX6900 + curated partner communities. The Graph subgraph for indexing.</p>
       </div>
     </div>
     <div class="roadmap-item">
       <div class="roadmap-dot"></div>
       <div class="roadmap-content">
         <span class="roadmap-tag upcoming">Later</span>
-        <h3>Robinhood Chain (Arbitrum Orbit) + more</h3>
+        <h3>Robinhood Chain + more</h3>
         <p>Arbitrum Orbit deployments for chains that want a sovereign L2 with DHP as canonical infrastructure.</p>
       </div>
     </div>
@@ -1169,11 +1470,11 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 <div class="container">
   <div class="cta-content">
     <h2>Try it. Break it. Tell us.</h2>
-    <p>The testnet is live. Deposit fake SPX, claim real dividends, watch the burn. Found a bug? Open an issue — we'll pay you.</p>
+    <p>The testnet is live. Deposit fake SPX, claim real dividends, watch the burn. Found a bug? Open an issue.</p>
     <div class="cta-buttons">
       <a href="https://sepolia.basescan.org/address/0xee1e2343E513736f29ceeF24071B63874661273F" target="_blank" rel="noopener" class="btn btn-primary">
         Open testnet
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol" target="_blank" rel="noopener" class="btn btn-secondary">
         <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -1227,71 +1528,230 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
     <div>© 2026 CryptoSI DAO · MIT licensed</div>
     <div>
       <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/feat/v1-core-contracts/SECURITY.md" target="_blank" rel="noopener">Security</a>
-      <span style="margin: 0 8px;">·</span>
-      Built with care. Renounced at launch.
+      · Built with care. Renounced at launch.
     </div>
   </div>
 </div>
 </footer>
 
 <script>
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    const href = this.getAttribute('href');
-    if (href === '#' || href === '#video-embed') return;
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
+(function() {
+  'use strict';
 
-// Nav background on scroll
-const nav = document.querySelector('.nav');
-let lastScroll = 0;
-window.addEventListener('scroll', () => {
-  const currentScroll = window.pageYOffset;
-  if (currentScroll > 50) {
-    nav.style.background = 'rgba(6, 6, 10, 0.9)';
-  } else {
-    nav.style.background = 'rgba(6, 6, 10, 0.7)';
+  // ============================================================
+  // THEME MANAGEMENT
+  // ============================================================
+  const THEME_KEY = 'dhp-theme';
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+
+  function getPreferredTheme() {
+    const stored = localStorage.getItem(THEME_KEY);
+    if (stored) return stored;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   }
-  lastScroll = currentScroll;
-});
 
-// Animated stat numbers on scroll into view
-const stats = document.querySelectorAll('.stat-num, .security-num');
-const animateNumber = (el) => {
-  const text = el.textContent;
-  const match = text.match(/(\d+)/);
-  if (!match) return;
-  const target = parseInt(match[0]);
-  const suffix = text.replace(match[0], '');
-  let current = 0;
-  const duration = 1500;
-  const stepTime = 30;
-  const steps = duration / stepTime;
-  const increment = target / steps;
-  const timer = setInterval(() => {
-    current += increment;
-    if (current >= target) {
-      current = target;
-      clearInterval(timer);
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+      meta.setAttribute('content', theme === 'light' ? '#fafafa' : '#06060a');
     }
-    el.textContent = Math.floor(current) + suffix;
-  }, stepTime);
-};
-const statObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !entry.target.dataset.animated) {
-      entry.target.dataset.animated = 'true';
-      animateNumber(entry.target);
+  }
+
+  // Initialize theme on load
+  setTheme(getPreferredTheme());
+
+  // Listen for system theme changes if no manual override
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem(THEME_KEY + '-manual')) {
+      setTheme(e.matches ? 'dark' : 'light');
     }
   });
-}, { threshold: 0.5 });
-stats.forEach(s => statObserver.observe(s));
+
+  // Toggle button
+  themeToggle.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    localStorage.setItem(THEME_KEY + '-manual', '1');
+  });
+
+  // ============================================================
+  // MOBILE MENU
+  // ============================================================
+  const menuBtn = document.getElementById('navMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', isOpen);
+  });
+  // Close mobile menu on link click
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+      mobileMenu.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // ============================================================
+  // NAV SCROLL EFFECT
+  // ============================================================
+  const nav = document.getElementById('nav');
+  let ticking = false;
+  function updateNav() {
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateNav);
+      ticking = true;
+    }
+  });
+
+  // ============================================================
+  // SMOOTH SCROLL
+  // ============================================================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#' || href.length < 2) return;
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        const navHeight = nav.offsetHeight;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
+        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ============================================================
+  // ANIMATED STAT COUNTERS
+  // ============================================================
+  const stats = document.querySelectorAll('[data-target]');
+  function animateStat(el) {
+    if (el.dataset.animated) return;
+    el.dataset.animated = 'true';
+    const target = parseInt(el.dataset.target, 10);
+    if (isNaN(target)) return;
+    const suffix = el.dataset.suffix || '';
+    const duration = 1500;
+    const startTime = performance.now();
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(target * eased);
+      el.textContent = current + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) animateStat(entry.target);
+    });
+  }, { threshold: 0.3 });
+  stats.forEach(s => statObserver.observe(s));
+
+  // ============================================================
+  // COPY TO CLIPBOARD
+  // ============================================================
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const text = btn.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(text);
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+      }
+    });
+  });
+
+  // ============================================================
+  // VIDEO EMBED (click-to-play)
+  // ============================================================
+  const videoEmbed = document.getElementById('videoEmbed');
+  videoEmbed.addEventListener('click', () => {
+    // Replace with your video URL. Currently a placeholder.
+    const videoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0';
+    videoEmbed.innerHTML = `<iframe width="100%" height="100%" src="${videoUrl}" title="Diamond Hands Protocol Explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border:0;"></iframe>`;
+  });
+  videoEmbed.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      videoEmbed.click();
+    }
+  });
+
+  // ============================================================
+  // INTERSECTION OBSERVER FOR FADE-INS
+  // ============================================================
+  if ('IntersectionObserver' in window) {
+    const fadeEls = document.querySelectorAll('.flow-row, .econ-card, .security-card, .contract-card, .roadmap-item, .step');
+    fadeEls.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    });
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, i * 50);
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => fadeObserver.observe(el));
+  }
+
+  // ============================================================
+  // KEYBOARD: ESC closes mobile menu
+  // ============================================================
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      mobileMenu.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
 </script>
 
 </body>
