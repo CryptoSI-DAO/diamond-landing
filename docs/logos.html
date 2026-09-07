@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DHP Logo Options</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #06060a;
+    color: #f5f5fa;
+    padding: 40px 20px;
+    line-height: 1.6;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 32px; margin-bottom: 8px; }
+  .subtitle { color: #6e6e82; margin-bottom: 48px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .card {
+    background: #11111a;
+    border: 1px solid #1e1e2a;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  .card:hover {
+    border-color: #00ffa3;
+    transform: translateY(-2px);
+  }
+  .card-light { background: #fafafa; border-color: #e5e5eb; }
+  .card-img {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: #06060a;
+  }
+  .card-light .card-img { background: #fafafa; }
+  .card-img img, .card-img svg { max-width: 100%; max-height: 100%; }
+  .card-meta { padding: 20px; }
+  .card-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .card-desc { font-size: 13px; color: #6e6e82; }
+  .winner {
+    border-color: #00ffa3;
+    box-shadow: 0 0 24px rgba(0, 255, 163, 0.15);
+    position: relative;
+  }
+  .winner::before {
+    content: '✓ Current';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #00ffa3;
+    color: #06060a;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    z-index: 1;
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 48px 0 16px;
+    color: #f5f5fa;
+  }
+  .section-title:first-of-type { margin-top: 0; }
+  .note {
+    background: #11111a;
+    border: 1px solid #1e1e2a;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 48px;
+    font-size: 14px;
+    color: #b8b8c8;
+  }
+  .note strong { color: #f5f5fa; }
+  .note code { background: #06060a; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>🪙 Diamond Hands Protocol — Logo Options</h1>
+  <p class="subtitle">Hand-crafted SVG vs. AI-generated concepts. Pick what ships.</p>
+
+  <h2 class="section-title">✅ Current (shipped to landing page)</h2>
+  <div class="grid">
+    <div class="card winner">
+      <div class="card-img">
+        <svg viewBox="0 0 64 64" fill="none" width="100%" height="100%" aria-label="DHP logo mark">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#00ffa3"/>
+              <stop offset="100%" stop-color="#00d4ff"/>
+            </linearGradient>
+          </defs>
+          <path d="M32 4 L60 32 L32 60 L4 32 Z" fill="url(#g1)"/>
+          <path d="M32 4 L60 32 L32 22 Z" fill="#ffffff" fill-opacity="0.18"/>
+          <path d="M22 20 L22 44 L31 44 C38 44 41 40 41 35 C41 30 38 26 31 26 L28 26 L28 20 Z M28 31 L30 31 C32 31 33 32 33 35 C33 38 32 39 30 39 L28 39 Z" fill="#06060a"/>
+          <path d="M19 48 L32 55 L45 48" stroke="#06060a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="card-meta">
+        <div class="card-title">Hand-crafted SVG (logo-mark.svg)</div>
+        <div class="card-desc">Faceted diamond · mint→cyan gradient · D cutout · grip chevron · 836 bytes · works in light + dark mode · scales to any size</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">🤖 AI-generated (Pollinations.ai / FLUX)</h2>
+  <p class="subtitle" style="margin-bottom:24px;">Free · no API key · 512×512 PNG · unedited. Look at them and pick.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="card-img">
+        <img src="logos/variant-1.png" alt="AI variant 1 — faceted diamond with D cutout, mint to cyan gradient">
+      </div>
+      <div class="card-meta">
+        <div class="card-title">Variant 1 — Faceted diamond, D cutout</div>
+        <div class="card-desc">Prompt: "minimalist crypto logo, faceted diamond shape with letter D cutout, mint green to cyan gradient, geometric, dark background, no text, vector style"</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="logos/variant-2.png" alt="AI variant 2 — diamond hands cradling a gem">
+      </div>
+      <div class="card-meta">
+        <div class="card-title">Variant 2 — Hands cradling a gem</div>
+        <div class="card-desc">Prompt: "geometric diamond hands logo, two hands cradling a faceted gem, mint green and cyan, minimalist, dark background, no text, vector style"</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <p><strong>Why the SVG won by default:</strong></p>
+    <ul style="margin: 12px 0 12px 24px;">
+      <li><strong>Vector:</strong> scales to any size (16px favicon → 4K social banner) without quality loss. AI generations are 512×512 PNG and degrade when scaled up.</li>
+      <li><strong>Theme-aware:</strong> the SVG uses <code>currentColor</code> so the D cutout adapts to dark/light mode automatically. AI images are fixed.</li>
+      <li><strong>Editable:</strong> anyone with a text editor can tweak the gradient stops, swap the D for a different letterform, or adjust the chevron. AI images require Photoshop or a designer.</li>
+      <li><strong>File size:</strong> 836 bytes vs 10–20KB per PNG variant.</li>
+      <li><strong>Designer-quality output:</strong> AI image generators are great for mood boards but rarely produce logo-quality output (issues with edge cases, type, consistency, legibility at small sizes).</li>
+    </ul>
+    <p style="margin-top: 16px;"><strong>If you want to iterate on the AI variants:</strong> hit <code>bash scripts/regen-logos.sh</code> with a new prompt, or open this page in a browser and use the prompts above in Midjourney / DALL-E / Ideogram (those are higher quality than free-tier Pollinations).</p>
+  </div>
+
+</div>
+</body>
+</html>
