@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 60" fill="none" role="img" aria-label="DHP">
+  <defs>
+    <linearGradient id="dhp-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00ffa3"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(0, 0)">
+    <path d="M30 6 L54 30 L30 54 L6 30 Z" fill="url(#dhp-g)"/>
+    <path d="M30 6 L54 30 L30 22 Z" fill="#ffffff" fill-opacity="0.18"/>
+    <path d="M22 18 L22 42 L30 42 C36 42 38 39 38 35 C38 31 36 28 30 28 L28 28 L28 18 Z M28 32 L29 32 C31 32 31 33 31 35 C31 37 31 38 29 38 L28 38 Z" fill="#06060a"/>
+    <path d="M19 46 L30 51 L41 46" stroke="#06060a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <g transform="translate(72, 0)" font-family="Inter, system-ui, sans-serif" font-weight="700" letter-spacing="-0.5">
+    <text x="0" y="38" font-size="22" fill="currentColor">Diamond</text>
+    <text x="78" y="38" font-size="22" fill="url(#dhp-g)">Hands</text>
+  </g>
+</svg>

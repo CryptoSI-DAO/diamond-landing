@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" fill="none" role="img" aria-label="Diamond Hands Protocol">
+  <defs>
+    <linearGradient id="dhp-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00ffa3"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon: faceted diamond with grip-lines suggesting "hold" + "lock" -->
+  <g transform="translate(8, 8)">
+    <!-- Outer diamond shape -->
+    <path d="M32 0 L64 32 L32 64 L0 32 Z" fill="url(#dhp-grad)"/>
+    <!-- Top facet highlight (gives depth) -->
+    <path d="M32 0 L64 32 L32 22 Z" fill="#ffffff" fill-opacity="0.18"/>
+    <!-- Center "D" mark, set inside the diamond so it reads at any size -->
+    <path d="M22 18 L22 46 L30 46 C36 46 39 43 39 38 C39 33 36 30 30 30 L28 30 L28 18 Z M28 35 L29 35 C31 35 32 36 32 38 C32 40 31 41 29 41 L28 41 Z" fill="#06060a"/>
+    <!-- Bottom chevron "hands holding" — three grip lines under the D -->
+    <path d="M20 50 L32 56 L44 50" stroke="#06060a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <!-- Wordmark: geometric, monospaced, gradient fill -->
+  <g transform="translate(88, 0)" font-family="Inter, system-ui, sans-serif" font-weight="700" letter-spacing="-1.2">
+    <text x="0" y="36" font-size="28" fill="currentColor">DIAMOND</text>
+    <text x="0" y="64" font-size="28" fill="url(#dhp-grad)">HANDS</text>
+  </g>
+
+  <!-- Tagline micro-line for the lockup (optional, very small) -->
+  <!-- intentionally omitted in primary lockup — keeps the mark clean -->
+</svg>
