@@ -18,13 +18,13 @@ export const metadata: Metadata = {
   },
 };
 
-const themeInit = `(function(){try{var t=localStorage.getItem('dhp-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`;
+const themeInit = `(function(){try{var t=localStorage.getItem('dhp-theme');if(t!=='light'&&t!=='dark'){t='light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning>
+    <html lang="en" data-theme="light" suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#04070f" />
+        <meta name="theme-color" content="#f7faff" />
         <meta name="color-scheme" content="dark light" />
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

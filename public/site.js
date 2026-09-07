@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded',function(){
   function getPreferredTheme() {
     const stored = localStorage.getItem(THEME_KEY);
     if (stored) return stored;
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    return 'light';
   }
 
   function setTheme(theme) {
