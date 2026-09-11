@@ -104,7 +104,7 @@ export default function Page() {
             <div className="flow-row-label">Dividends to holders</div>
             <div className="flow-row-desc">Pro-rata, claim anytime</div>
           </div>
-          <div className="flow-row-value" style={{ color: "var(--accent)" }}>+35</div>
+          <div className="flow-row-value" style={{ color: "var(--accent)" }}>+40</div>
         </div>
         <div className="flow-row">
           <div className="flow-icon fee">
@@ -122,9 +122,9 @@ export default function Page() {
           </div>
           <div className="flow-row-text">
             <div className="flow-row-label">Burned forever</div>
-            <div className="flow-row-desc">→ 0x…dEaD</div>
+            <div className="flow-row-desc">Locked out of the share price forever</div>
           </div>
-          <div className="flow-row-value" style={{ color: "var(--danger)" }}>−12.5</div>
+          <div className="flow-row-value" style={{ color: "var(--danger)" }}>−9.75</div>
         </div>
         <div className="flow-divider">net to user</div>
         <div className="flow-row highlight">
@@ -233,15 +233,15 @@ export default function Page() {
     </div>
     <div className="econ-card">
       <div className="econ-label">Dividend share</div>
-      <div className="econ-value">70%</div>
+      <div className="econ-value">80%</div>
       <div className="econ-desc">Of every tax flows to existing holders pro-rata.</div>
     </div>
   </div>
 
   <div className="econ-bar">
-    <div className="econ-bar-seg dividend" style={{ width: "70%" }}><span>70% Holders</span></div>
-    <div className="econ-bar-seg fee" style={{ width: "5%" }}><span>5%</span></div>
-    <div className="econ-bar-seg burn" style={{ width: "25%" }}><span>25% Burn</span></div>
+    <div className="econ-bar-seg dividend" style={{ width: "80%" }}><span>80% Holders</span></div>
+    <div className="econ-bar-seg fee" style={{ width: "2%" }}><span>0.5%</span></div>
+    <div className="econ-bar-seg burn" style={{ width: "18%" }}><span>19.5% Burn</span></div>
   </div>
   <div className="econ-legend">
     <div className="econ-legend-item"><span className="econ-legend-dot dividend"></span> Dividends to holders</div>
@@ -385,7 +385,7 @@ export default function Page() {
       <div className="roadmap-content">
         <span className="roadmap-tag upcoming">Q4 2026</span>
         <h3>Base mainnet + first vault (SPX6900)</h3>
-        <p>Post-audit deployment. Launch the first community vault for SPX6900 with default 5% / 10% / 70% config.</p>
+        <p>Post-audit deployment. Launch the first community vault for SPX6900 with the default 5% / 10% / 80% config.</p>
       </div>
     </div>
     <div className="roadmap-item">
