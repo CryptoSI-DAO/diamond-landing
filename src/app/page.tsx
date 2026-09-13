@@ -313,7 +313,7 @@ export default function Page() {
   <div className="section-header">
     <div className="eyebrow">Contracts</div>
     <h2>Live on Base Sepolia</h2>
-    <p style={{ maxWidth: "600px", margin: "0 auto" }}>All three contracts deployed and Sourcify-verified. Same addresses will be used on mainnet.</p>
+    <p style={{ maxWidth: "600px", margin: "0 auto" }}>v1.3.0 — all three contracts deployed and Sourcify-verified. Mainnet addresses publish only after the external audit clears.</p>
   </div>
 
   <div className="contracts-grid">
@@ -323,9 +323,9 @@ export default function Page() {
         <span className="contract-badge">✓ Verified</span>
       </div>
       <p>The vault logic: ERC-20 share math, dividend distribution, tax splits, anti-FOT guard.</p>
-      <div className="contract-address" data-address="0xaa5a3a495dadbeb4c5256c0e62ae0603d53f714b">
-        <span className="addr-text">0xaa5a3a495dadbeb4c5256c0e62ae0603d53f714b</span>
-        <button className="copy-btn" data-copy="0xaa5a3a495dadbeb4c5256c0e62ae0603d53f714b" aria-label="Copy address">Copy</button>
+      <div className="contract-address" data-address="0xa69459881ec5fc7393e6a9212cb4232ec96b7d96">
+        <span className="addr-text">0xa69459881ec5fc7393e6a9212cb4232ec96b7d96</span>
+        <button className="copy-btn" data-copy="0xa69459881ec5fc7393e6a9212cb4232ec96b7d96" aria-label="Copy address">Copy</button>
       </div>
     </div>
     <div className="contract-card">
@@ -334,9 +334,9 @@ export default function Page() {
         <span className="contract-badge">✓ Verified</span>
       </div>
       <p>Permissionless deployment of vaults via EIP-1167 clones. Registry of all vaults.</p>
-      <div className="contract-address" data-address="0xf98a8db0b6a2be70e259992be11c252dbeccaa4d">
-        <span className="addr-text">0xf98a8db0b6a2be70e259992be11c252dbeccaa4d</span>
-        <button className="copy-btn" data-copy="0xf98a8db0b6a2be70e259992be11c252dbeccaa4d" aria-label="Copy address">Copy</button>
+      <div className="contract-address" data-address="0x85d6436aabcba27888bc673a7f7cf6be3d2e4b9d">
+        <span className="addr-text">0x85d6436aabcba27888bc673a7f7cf6be3d2e4b9d</span>
+        <button className="copy-btn" data-copy="0x85d6436aabcba27888bc673a7f7cf6be3d2e4b9d" aria-label="Copy address">Copy</button>
       </div>
     </div>
     <div className="contract-card">
@@ -345,12 +345,15 @@ export default function Page() {
         <span className="contract-badge">✓ Verified</span>
       </div>
       <p>Accumulates the 0.5% protocol fee from every vault. DAO-controlled sweep destinations.</p>
-      <div className="contract-address" data-address="0xc6071346a5bb93bf1cc915124050004a268c4d37">
-        <span className="addr-text">0xc6071346a5bb93bf1cc915124050004a268c4d37</span>
-        <button className="copy-btn" data-copy="0xc6071346a5bb93bf1cc915124050004a268c4d37" aria-label="Copy address">Copy</button>
+      <div className="contract-address" data-address="0x412fa6073e977bdf57dabed1336dc7bd70d6e8c1">
+        <span className="addr-text">0x412fa6073e977bdf57dabed1336dc7bd70d6e8c1</span>
+        <button className="copy-btn" data-copy="0x412fa6073e977bdf57dabed1336dc7bd70d6e8c1" aria-label="Copy address">Copy</button>
       </div>
     </div>
   </div>
+  <p style={{ textAlign: "center", marginTop: "1rem", fontSize: "0.8rem", opacity: 0.55 }}>
+    Legacy v1.2.2 deployment (superseded by the v1.3.0 unclaimed-IOU backing fix, kept for comparison): factory <a href="https://sepolia.basescan.org/address/0xf98a8db0b6a2be70e259992be11c252dbeccaa4d" target="_blank" rel="noopener" style={{ textDecoration: "underline" }}>0xf98a8db0b6a2be70e259992be11c252dbeccaa4d</a>
+  </p>
 </div>
 </section>
 
@@ -369,7 +372,7 @@ export default function Page() {
       <div className="roadmap-content">
         <span className="roadmap-tag done">Shipped</span>
         <h3>Base Sepolia testnet</h3>
-        <p>3 contracts deployed, 54/54 tests passing, smoke-tested with real deposits + dividend claims. September 2026.</p>
+        <p>3 contracts deployed, 75/75 tests passing across 5 suites, Sourcify-verified, smoke-tested with real deposits + dividend claims. September 2026.</p>
       </div>
     </div>
     <div className="roadmap-item">
@@ -457,7 +460,7 @@ export default function Page() {
         <li><a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol" target="_blank" rel="noopener">GitHub</a></li>
         <li><a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/feat/v1-core-contracts/SELF_AUDIT.md" target="_blank" rel="noopener">Audit report</a></li>
         <li><a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/feat/v1-core-contracts/RFP_AUDIT.md" target="_blank" rel="noopener">RFP</a></li>
-        <li><a href="https://sepolia.basescan.org/address/0xf98a8db0b6a2be70e259992be11c252dbeccaa4d" target="_blank" rel="noopener">BaseScan</a></li>
+        <li><a href="https://sepolia.basescan.org/address/0x85d6436aabcba27888bc673a7f7cf6be3d2e4b9d" target="_blank" rel="noopener">BaseScan (v1.3.0)</a></li>
       </ul>
     </div>
     <div className="footer-col">
