@@ -49,7 +49,7 @@ export default function Page() {
       </div>
       <div className="hero-status">
         <span className="status-dot"></span>
-        <span>Live on Base Sepolia</span>
+        <span>Live on Base Mainnet</span>
       </div>
       <h1>Paper hands fund <span className="gradient-text">diamond hands</span>.</h1>
       <p className="hero-tagline">On-chain. Forever.</p>
