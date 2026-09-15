@@ -364,6 +364,63 @@ export default function Page() {
 <section className="section" id="roadmap">
 <div className="container">
   <div className="section-header">
+    <div className="eyebrow">Networks</div>
+    <h2>One protocol. Every chain.</h2>
+    <p style={{ maxWidth: "600px", margin: "0 auto" }}>Same bytecode, fresh chains. v1.4.0 is live on Base; the same contracts roll out across the wider EVM ecosystem.</p>
+  </div>
+
+  <div style={{ overflowX: "auto", marginTop: "2rem" }}>
+    <table style={{ width: "100%", maxWidth: "980px", margin: "0 auto", borderCollapse: "collapse", fontSize: "0.82rem" }}>
+      <thead>
+        <tr style={{ borderBottom: "2px solid #e7f900" }}>
+          <th style={{ textAlign: "left", padding: "0.75rem 1rem", color: "#e7f900", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "0.72rem" }}>Network</th>
+          <th style={{ textAlign: "left", padding: "0.75rem 1rem", color: "#e7f900", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "0.72rem" }}>Status</th>
+          <th style={{ textAlign: "left", padding: "0.75rem 1rem", color: "#e7f900", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "0.72rem" }}>DHPFactory</th>
+          <th style={{ textAlign: "left", padding: "0.75rem 1rem", color: "#e7f900", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "0.72rem" }}>DHPImplementation</th>
+          <th style={{ textAlign: "left", padding: "0.75rem 1rem", color: "#e7f900", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "0.72rem" }}>DHPFeeCollector</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
+          <td style={{ padding: "1rem", fontWeight: 700, whiteSpace: "nowrap" }}>Base</td>
+          <td style={{ padding: "1rem" }}><span className="contract-badge">● LIVE</span></td>
+          <td style={{ padding: "1rem" }}><a href="https://base.blockscout.com/address/0x64be13ce698684846ae0642c1c63bb5ede8f6929" target="_blank" rel="noopener" className="addr-text" style={{ textDecoration: "underline" }}>0x64BE13cE…e8F6929</a></td>
+          <td style={{ padding: "1rem" }}><a href="https://base.blockscout.com/address/0x75a7fee6e8c17f6a7c39136c69a869fe99961d94" target="_blank" rel="noopener" className="addr-text" style={{ textDecoration: "underline" }}>0x75a7Fee6…99961D94</a></td>
+          <td style={{ padding: "1rem" }}><a href="https://base.blockscout.com/address/0x0d48743923d8fce041325f98b5ce884a323f5499" target="_blank" rel="noopener" className="addr-text" style={{ textDecoration: "underline" }}>0x0D487439…23f5499</a></td>
+        </tr>
+        <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
+          <td style={{ padding: "1rem", fontWeight: 700, whiteSpace: "nowrap" }}>Ethereum</td>
+          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
+          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
+          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
+          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
+        </tr>
+        <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
+          <td style={{ padding: "1rem", fontWeight: 700, whiteSpace: "nowrap" }}>BNB Chain</td>
+          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
+          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
+          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
+          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
+        </tr>
+        <tr>
+          <td style={{ padding: "1rem", fontWeight: 700, whiteSpace: "nowrap" }}>Robinhood Chain</td>
+          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
+          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
+          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
+          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style={{ textAlign: "center", marginTop: "1rem", fontSize: "0.78rem", opacity: 0.55 }}>
+    Addresses abbreviated for display — click any to open the explorer. Multichain deployments will use identical, independently verified source code.
+  </p>
+</div>
+</section>
+
+<section className="section" id="roadmap">
+<div className="container">
+  <div className="section-header">
     <div className="eyebrow">Roadmap</div>
     <h2>From testnet to wherever you are</h2>
     <p style={{ maxWidth: "600px", margin: "0 auto" }}>The protocol is chain-agnostic. Same addresses, same logic, wherever you want to hold.</p>
@@ -486,7 +543,7 @@ export default function Page() {
   <div className="footer-bottom">
     <div>© 2026 CryptoSI DAO · MIT licensed</div>
     <div>
-      <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/feat/v1-core-contracts/SECURITY.md" target="_blank" rel="noopener">Security</a>
+      <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/main/SECURITY.md" target="_blank" rel="noopener">Security</a>
       · Built with care. Renounced at launch.
     </div>
   </div>
