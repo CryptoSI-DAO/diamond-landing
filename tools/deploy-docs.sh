@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 # Build the Next.js static export and sync it into docs/ (GitHub Pages root).
 # Pages serves this repo from /docs on master under /diamond-landing/.
+#
+# ORDER MATTERS: run this script BEFORE `git commit` — it rewrites docs/ in
+# the working tree. Committing source first and running the script after
+# ships a stale build (the 2026-09-15 bug: Pages served the previous
+# deploy while docs/ sat uncommitted). Correct order: edit source → run
+# this script → git add (source + docs/) → commit → push.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 export PATH="/root/.hermes/node/bin:$PATH"
