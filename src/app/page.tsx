@@ -312,8 +312,8 @@ export default function Page() {
 <div className="container">
   <div className="section-header">
     <div className="eyebrow">Contracts</div>
-    <h2>Live on Base Sepolia</h2>
-    <p style={{ maxWidth: "600px", margin: "0 auto" }}>v1.3.0 — all three contracts deployed and Sourcify-verified. Mainnet addresses publish only after the external audit clears.</p>
+    <h2>Live on Base Mainnet</h2>
+    <p style={{ maxWidth: "600px", margin: "0 auto" }}>v1.4.0 — all three contracts deployed (September 2026, block 51,343,897) and Blockscout-verified. Free-market creation, six-way partner revenue split, pull payments.</p>
   </div>
 
   <div className="contracts-grid">
@@ -322,10 +322,10 @@ export default function Page() {
         <h3>DHPImplementation</h3>
         <span className="contract-badge">✓ Verified</span>
       </div>
-      <p>The vault logic: ERC-20 share math, dividend distribution, tax splits, anti-FOT guard.</p>
-      <div className="contract-address" data-address="0xa69459881ec5fc7393e6a9212cb4232ec96b7d96">
-        <span className="addr-text">0xa69459881ec5fc7393e6a9212cb4232ec96b7d96</span>
-        <button className="copy-btn" data-copy="0xa69459881ec5fc7393e6a9212cb4232ec96b7d96" aria-label="Copy address">Copy</button>
+      <p>The vault logic: ERC-20 share math, dividend distribution, the 80/10/4/2/2/2 tax split, anti-FOT guard.</p>
+      <div className="contract-address" data-address="0x75a7Fee6e8c17F6A7C39136C69A869fe99961D94">
+        <span className="addr-text">0x75a7Fee6e8c17F6A7C39136C69A869fe99961D94</span>
+        <button className="copy-btn" data-copy="0x75a7Fee6e8c17F6A7C39136C69A869fe99961D94" aria-label="Copy address">Copy</button>
       </div>
     </div>
     <div className="contract-card">
@@ -333,10 +333,10 @@ export default function Page() {
         <h3>DHPFactory</h3>
         <span className="contract-badge">✓ Verified</span>
       </div>
-      <p>Permissionless deployment of vaults via EIP-1167 clones. Registry of all vaults.</p>
-      <div className="contract-address" data-address="0x85d6436aabcba27888bc673a7f7cf6be3d2e4b9d">
-        <span className="addr-text">0x85d6436aabcba27888bc673a7f7cf6be3d2e4b9d</span>
-        <button className="copy-btn" data-copy="0x85d6436aabcba27888bc673a7f7cf6be3d2e4b9d" aria-label="Copy address">Copy</button>
+      <p>Permissionless deployment of vaults via EIP-1167 clones. Registry of all vaults. 0.004 ETH creation fee.</p>
+      <div className="contract-address" data-address="0x64BE13cE698684846Ae0642c1c63bb5eDE8F6929">
+        <span className="addr-text">0x64BE13cE698684846Ae0642c1c63bb5eDE8F6929</span>
+        <button className="copy-btn" data-copy="0x64BE13cE698684846Ae0642c1c63bb5eDE8F6929" aria-label="Copy address">Copy</button>
       </div>
     </div>
     <div className="contract-card">
@@ -344,15 +344,18 @@ export default function Page() {
         <h3>DHPFeeCollector</h3>
         <span className="contract-badge">✓ Verified</span>
       </div>
-      <p>Accumulates the 0.5% protocol fee from every vault. DAO-controlled sweep destinations.</p>
-      <div className="contract-address" data-address="0x412fa6073e977bdf57dabed1336dc7bd70d6e8c1">
-        <span className="addr-text">0x412fa6073e977bdf57dabed1336dc7bd70d6e8c1</span>
-        <button className="copy-btn" data-copy="0x412fa6073e977bdf57dabed1336dc7bd70d6e8c1" aria-label="Copy address">Copy</button>
+      <p>Accumulates the DAO's 4% + 2% usage share of every vault tax. DAO-controlled sweep destinations.</p>
+      <div className="contract-address" data-address="0x0D48743923D8fcE041325F98B5Ce884a323f5499">
+        <span className="addr-text">0x0D48743923D8fcE041325F98B5Ce884a323f5499</span>
+        <button className="copy-btn" data-copy="0x0D48743923D8fcE041325F98B5Ce884a323f5499" aria-label="Copy address">Copy</button>
       </div>
     </div>
   </div>
   <p style={{ textAlign: "center", marginTop: "1rem", fontSize: "0.8rem", opacity: 0.55 }}>
-    Legacy v1.2.2 deployment (superseded by the v1.3.0 unclaimed-IOU backing fix, kept for comparison): factory <a href="https://sepolia.basescan.org/address/0xf98a8db0b6a2be70e259992be11c252dbeccaa4d" target="_blank" rel="noopener" style={{ textDecoration: "underline" }}>0xf98a8db0b6a2be70e259992be11c252dbeccaa4d</a>
+    Testnet lineage (Base Sepolia): v1.3.0 factory{" "}
+    <a href="https://base-sepolia.blockscout.com/address/0x85d6436aabcba27888bc673a7f7cf6be3d2e4b9d" target="_blank" rel="noopener" style={{ textDecoration: "underline" }}>0x85d6436aabcba27888bc673a7f7cf6be3d2e4b9d</a>
+    {" "}· legacy v1.2.2 factory{" "}
+    <a href="https://base-sepolia.blockscout.com/address/0xf98a8db0b6a2be70e259992be11c252dbeccaa4d" target="_blank" rel="noopener" style={{ textDecoration: "underline" }}>0xf98a8db0b6a2be70e259992be11c252dbeccaa4d</a>
   </p>
 </div>
 </section>
@@ -466,9 +469,9 @@ export default function Page() {
       <h4>Build</h4>
       <ul>
         <li><a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/feat/v1-core-contracts/SELF_AUDIT.md" target="_blank" rel="noopener">Audit report</a></li>
-        <li><a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/feat/v1-core-contracts/RFP_AUDIT.md" target="_blank" rel="noopener">RFP</a></li>
-        <li><a href="https://sepolia.basescan.org/address/0x85d6436aabcba27888bc673a7f7cf6be3d2e4b9d" target="_blank" rel="noopener">BaseScan (v1.3.0)</a></li>
+        <li><a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/main/SELF_AUDIT_V1.4.0.md" target="_blank" rel="noopener">Audit report</a></li>
+        <li><a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol/blob/main/RFP_AUDIT.md" target="_blank" rel="noopener">RFP</a></li>
+        <li><a href="https://base.blockscout.com/address/0x64be13ce698684846ae0642c1c63bb5ede8f6929" target="_blank" rel="noopener">Factory on Base Mainnet</a></li>
       </ul>
     </div>
     <div className="footer-col">
