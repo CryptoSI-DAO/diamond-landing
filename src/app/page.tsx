@@ -372,7 +372,7 @@ export default function Page() {
       <div className="roadmap-content">
         <span className="roadmap-tag done">Shipped</span>
         <h3>Base Sepolia testnet</h3>
-        <p>3 contracts deployed, 101/101 tests passing across 10 suites, Sourcify-verified, smoke-tested with real deposits + dividend claims. September 2026.</p>
+        <p>3 contracts deployed, 101/101 tests passing across 10 suites, Blockscout-verified, smoke-tested with real deposits + dividend claims. September 2026.</p>
       </div>
     </div>
     <div className="roadmap-item">
@@ -384,11 +384,19 @@ export default function Page() {
       </div>
     </div>
     <div className="roadmap-item">
-      <div className="roadmap-dot"></div>
+      <div className="roadmap-dot done"></div>
       <div className="roadmap-content">
-        <span className="roadmap-tag upcoming">Q4 2026</span>
-        <h3>Base mainnet + first vault (SPX6900)</h3>
-        <p>Post-audit deployment. Launch the first community vault for SPX6900 with the default 5% / 10% / 80% config.</p>
+        <span className="roadmap-tag done">Shipped</span>
+        <h3>Base mainnet — LIVE</h3>
+        <p>Deployed September 2026 (block 51,343,897). Free-market creation, 6-way partner revenue split (80/10/4/2/2/2), pull payments, same 5% / 10% / 80% economics. First community vault (SPX6900) next.</p>
+      </div>
+    </div>
+    <div className="roadmap-item">
+      <div className="roadmap-dot active"></div>
+      <div className="roadmap-content">
+        <span className="roadmap-tag active">In progress</span>
+        <h3>First community vault (SPX6900)</h3>
+        <p>Create the first vault on live mainnet with the 0.004 ETH creation fee, then onboard holders through the app.</p>
       </div>
     </div>
     <div className="roadmap-item">
