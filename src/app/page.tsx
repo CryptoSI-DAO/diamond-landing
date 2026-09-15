@@ -68,7 +68,7 @@ export default function Page() {
 
       <div className="hero-stats">
         <div>
-          <div className="stat-num" data-target="72">0</div>
+          <div className="stat-num" data-target="101">0</div>
           <div className="stat-label">Tests passing</div>
         </div>
         <div>
@@ -265,7 +265,7 @@ export default function Page() {
       <div className="security-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg>
       </div>
-      <div className="security-num" data-target="72">0</div>
+      <div className="security-num" data-target="101">0</div>
       <div className="security-label">Tests passing</div>
     </div>
     <div className="security-card">
@@ -372,7 +372,7 @@ export default function Page() {
       <div className="roadmap-content">
         <span className="roadmap-tag done">Shipped</span>
         <h3>Base Sepolia testnet</h3>
-        <p>3 contracts deployed, 75/75 tests passing across 5 suites, Sourcify-verified, smoke-tested with real deposits + dividend claims. September 2026.</p>
+        <p>3 contracts deployed, 101/101 tests passing across 10 suites, Sourcify-verified, smoke-tested with real deposits + dividend claims. September 2026.</p>
       </div>
     </div>
     <div className="roadmap-item">
