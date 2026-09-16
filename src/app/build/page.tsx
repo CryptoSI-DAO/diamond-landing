@@ -7,10 +7,13 @@ export const metadata: Metadata = {
 };
 
 const bp = process.env.BASE_PATH || "";
-// Canonical home for cross-subdomain links. On the build.dhp.cryptosidao.org
-// Vercel deployment this is set to the main landing origin, so "home" doesn't
-// rewrite back into the build page. Relative everywhere else (GitHub Pages).
-const HOME = process.env.NEXT_PUBLIC_HOME_URL || `${bp}/`;
+// Canonical home for cross-subdomain links. Pages builds set BASE_PATH, so
+// "home" stays relative there. Root-context builds (Vercel subdomain) fall
+// back to NEXT_PUBLIC_HOME_URL, then to the Pages origin — never to "/" which
+// would rewrite back into the build page on build.dhp.cryptosidao.org.
+const HOME =
+  process.env.NEXT_PUBLIC_HOME_URL ||
+  (bp ? `${bp}/` : "https://cryptosi-dao.github.io/diamond-landing/");
 
 const preStyle: React.CSSProperties = {
   background: "var(--bg-elevated, #131c30)",
