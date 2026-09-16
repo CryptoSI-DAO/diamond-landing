@@ -111,20 +111,30 @@ export default function Page() {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
           </div>
           <div className="flow-row-text">
-            <div className="flow-row-label">Protocol fee (0.5%)</div>
-            <div className="flow-row-desc">→ DAO treasury</div>
+            <div className="flow-row-label">Burned forever</div>
+            <div className="flow-row-desc">10% of every tax, locked out of the share price</div>
           </div>
-          <div className="flow-row-value" style={{ color: "#d9a441" }}>+2.5</div>
+          <div className="flow-row-value" style={{ color: "var(--danger)" }}>−5</div>
         </div>
         <div className="flow-row">
-          <div className="flow-icon burn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg>
+          <div className="flow-icon fee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
           </div>
           <div className="flow-row-text">
-            <div className="flow-row-label">Burned forever</div>
-            <div className="flow-row-desc">Locked out of the share price forever</div>
+            <div className="flow-row-label">DAO treasury (4%)</div>
+            <div className="flow-row-desc">→ DAO-controlled collector</div>
           </div>
-          <div className="flow-row-value" style={{ color: "var(--danger)" }}>−9.75</div>
+          <div className="flow-row-value" style={{ color: "#d9a441" }}>+2</div>
+        </div>
+        <div className="flow-row">
+          <div className="flow-icon fee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div className="flow-row-text">
+            <div className="flow-row-label">Creator & platforms (2% × 3)</div>
+            <div className="flow-row-desc">Pull payments, claimable anytime</div>
+          </div>
+          <div className="flow-row-value" style={{ color: "#d9a441" }}>+3</div>
         </div>
         <div className="flow-divider">net to user</div>
         <div className="flow-row highlight">
@@ -143,13 +153,13 @@ export default function Page() {
 
   <div className="live-banner">
     <div className="live-banner-left">
-      <h4>🔴 Base Sepolia Testnet — Live now</h4>
-      <p>3 contracts deployed, Sourcify-verified, smoke-tested. Deposit, claim dividends, watch the burn.</p>
+      <h4>🟢 Base Mainnet — LIVE</h4>
+      <p>3 contracts live, Blockscout-verified, deployment smoke-tested on rehearsal. Deposit, claim dividends, watch the burn.</p>
     </div>
     <div className="live-banner-stats">
-      <div className="live-stat">Vaults<strong>3</strong></div>
+      <div className="live-stat">Chain<strong>Base</strong></div>
       <div className="live-stat">Verified<strong style={{ color: "var(--accent)" }}>✓</strong></div>
-      <div className="live-stat">Tests<strong>54/54</strong></div>
+      <div className="live-stat">Tests<strong>101/101</strong></div>
     </div>
   </div>
 </div>
@@ -190,7 +200,7 @@ export default function Page() {
     <div className="step">
       <div className="step-num">1</div>
       <h3>Deploy</h3>
-      <p>Anyone calls the factory with a token and tax config. A new vault is cloned via EIP-1167 in a single transaction.</p>
+      <p>Anyone calls the factory with a token plus creator and platform wallets. A new vault is cloned via EIP-1167 in a single transaction — taxes are hard-coded, no config to get wrong. 0.004 ETH creation fee.</p>
     </div>
     <div className="step">
       <div className="step-num">2</div>
@@ -200,7 +210,7 @@ export default function Page() {
     <div className="step">
       <div className="step-num">3</div>
       <h3>Accrue</h3>
-      <p>The tax splits: dividends flow to existing holders, 0.5% to the DAO treasury, remainder burned forever.</p>
+      <p>Every tax event fires the same immutable split: 80% dividends to existing holders, 10% burned forever, 4% to the DAO treasury, and 2% each to the vault creator, creation platform, and usage platform — all pull payments, untouchable by admins.</p>
     </div>
     <div className="step">
       <div className="step-num">4</div>
@@ -217,36 +227,42 @@ export default function Page() {
   <div className="section-header">
     <div className="eyebrow">Token economics</div>
     <h2>The split is the point</h2>
-    <p style={{ maxWidth: "600px", margin: "0 auto" }}>Every tax event has a default split that's set at vault creation. The split is immutable. Here's the default for the first vault (SPX6900):</p>
+    <p style={{ maxWidth: "600px", margin: "0 auto" }}>Every tax event fires the same hard-coded split, written into the factory itself. Not configurable, not governance-mutable — a vault's economics are fixed for life. Here's the canon:</p>
   </div>
 
   <div className="economics-grid">
     <div className="econ-card">
       <div className="econ-label">Entry tax</div>
       <div className="econ-value">5%</div>
-      <div className="econ-desc">Applied on every deposit. Up to 10% configurable per vault.</div>
+      <div className="econ-desc">Applied on every deposit. Hard-coded by the factory — identical for every vault.</div>
     </div>
     <div className="econ-card">
       <div className="econ-label">Exit tax</div>
       <div className="econ-value">10%</div>
-      <div className="econ-desc">Applied on every withdraw. Up to 25% configurable per vault.</div>
+      <div className="econ-desc">Applied on every withdraw. Hard-coded by the factory — identical for every vault.</div>
     </div>
     <div className="econ-card">
       <div className="econ-label">Dividend share</div>
       <div className="econ-value">80%</div>
-      <div className="econ-desc">Of every tax flows to existing holders pro-rata.</div>
+      <div className="econ-desc">Of every tax flows to existing holders pro-rata — claim anytime, no lockups.</div>
     </div>
   </div>
 
   <div className="econ-bar">
     <div className="econ-bar-seg dividend" style={{ width: "80%" }}><span>80% Holders</span></div>
-    <div className="econ-bar-seg fee" style={{ width: "2%" }}><span>0.5%</span></div>
-    <div className="econ-bar-seg burn" style={{ width: "18%" }}><span>19.5% Burn</span></div>
+    <div className="econ-bar-seg burn" style={{ width: "10%" }}><span>10%</span></div>
+    <div className="econ-bar-seg fee" style={{ width: "4%" }}><span>4%</span></div>
+    <div className="econ-bar-seg fee" style={{ width: "2%", opacity: 0.65 }} title="Creator"></div>
+    <div className="econ-bar-seg fee" style={{ width: "2%", opacity: 0.5 }} title="Creation platform"></div>
+    <div className="econ-bar-seg fee" style={{ width: "2%", opacity: 0.35 }} title="Usage platform"></div>
   </div>
   <div className="econ-legend">
-    <div className="econ-legend-item"><span className="econ-legend-dot dividend"></span> Dividends to holders</div>
-    <div className="econ-legend-item"><span className="econ-legend-dot fee"></span> Protocol fee → DAO</div>
-    <div className="econ-legend-item"><span className="econ-legend-dot burn"></span> Burned forever</div>
+    <div className="econ-legend-item"><span className="econ-legend-dot dividend"></span> 80% Dividends to holders</div>
+    <div className="econ-legend-item"><span className="econ-legend-dot burn"></span> 10% Burned forever</div>
+    <div className="econ-legend-item"><span className="econ-legend-dot fee"></span> 4% DAO treasury</div>
+    <div className="econ-legend-item"><span className="econ-legend-dot fee" style={{ opacity: 0.65 }}></span> 2% Vault creator</div>
+    <div className="econ-legend-item"><span className="econ-legend-dot fee" style={{ opacity: 0.5 }}></span> 2% Creation platform</div>
+    <div className="econ-legend-item"><span className="econ-legend-dot fee" style={{ opacity: 0.35 }}></span> 2% Usage platform</div>
   </div>
 </div>
 </section>
