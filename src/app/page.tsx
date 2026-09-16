@@ -14,8 +14,8 @@ export default function Page() {
   <div className="nav-links" id="navLinks">
     <a href="#how">How it works</a>
     <a href="#economics">Economics</a>
-    <a href="#security">Security</a>
     <a href="#contracts">Contracts</a>
+    <a href="./build/">Build</a>
     <a href="#roadmap">Roadmap</a>
   </div>
   <div className="nav-actions">
@@ -57,7 +57,7 @@ export default function Page() {
 
       <div className="hero-ctas">
         <a href="https://diamond-app-chi.vercel.app" target="_blank" rel="noopener" className="btn btn-primary">
-          Launch Testnet
+          Launch App
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
         <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol" target="_blank" rel="noopener" className="btn btn-secondary">
