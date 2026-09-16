@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "build.dhp.cryptosidao.org" }],
+      "destination": "/build/"
+    },
+    {
+      "source": "/index.html",
+      "has": [{ "type": "host", "value": "build.dhp.cryptosidao.org" }],
+      "destination": "/build/"
+    }
+  ]
+}

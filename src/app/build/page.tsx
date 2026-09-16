@@ -7,6 +7,10 @@ export const metadata: Metadata = {
 };
 
 const bp = process.env.BASE_PATH || "";
+// Canonical home for cross-subdomain links. On the build.dhp.cryptosidao.org
+// Vercel deployment this is set to the main landing origin, so "home" doesn't
+// rewrite back into the build page. Relative everywhere else (GitHub Pages).
+const HOME = process.env.NEXT_PUBLIC_HOME_URL || `${bp}/`;
 
 const preStyle: React.CSSProperties = {
   background: "var(--bg-elevated, #131c30)",
@@ -43,7 +47,7 @@ export default function BuildPage() {
     <>
       <nav className="nav" id="nav">
         <div className="container nav-inner">
-          <a href={`${bp}/`} className="logo" aria-label="Diamond Hands Protocol home">
+          <a href={HOME} className="logo" aria-label="Diamond Hands Protocol home">
             <div className="logo-mark">
               <img src={`${bp}/logo-full.png`} alt="" width={64} height={38} />
             </div>
@@ -434,7 +438,7 @@ const pending = await client.readContract({
           <div className="footer-bottom">
             <div>© 2026 CryptoSI DAO · MIT licensed</div>
             <div>
-              <a href={`${bp}/`}>Home</a> ·{" "}
+              <a href={HOME}>Home</a> ·{" "}
               <a href="https://github.com/CryptoSI-DAO/diamond-hands-protocol" target="_blank" rel="noopener">Protocol</a>
               {" "}·{" "}
               <a href="https://github.com/CryptoSI-DAO/diamond-app" target="_blank" rel="noopener">App</a>

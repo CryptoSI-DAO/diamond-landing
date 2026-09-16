@@ -268,6 +268,40 @@ export default function Page() {
 </section>
 
 
+<section className="section contracts-section" id="build">
+<div className="container">
+  <div className="section-header">
+    <div className="eyebrow">Builders</div>
+    <h2>Build your own frontend. Earn 2%.</h2>
+    <p style={{ maxWidth: "600px", margin: "0 auto" }}>The contracts are permissionless — so is the frontend layer. Pass your wallet as the usage platform and DHP routes 2% of every tax event your users generate, on-chain, forever. Fork the official app or integrate with four snippets.</p>
+  </div>
+
+  <div className="contract-cards">
+    <div className="contract-card">
+      <h3>Fork the official app</h3>
+      <p>Next.js + wagmi v2 + viem, MIT-licensed, already speaks fluent DHP. Point the platform address at yourself, rebrand, ship.</p>
+      <div style={{ marginTop: "1rem" }}>
+        <a href="https://github.com/CryptoSI-DAO/diamond-app" target="_blank" rel="noopener" className="copy-btn" style={{ textDecoration: "none" }}>diamond-app ↗</a>
+      </div>
+    </div>
+    <div className="contract-card">
+      <h3>Integrate from scratch</h3>
+      <p>Read path, deposits, dividend claims, vault origination — copy-paste wagmi/viem snippets for each step, straight from the verified ABIs.</p>
+      <div style={{ marginTop: "1rem" }}>
+        <a href="./build/" className="copy-btn" style={{ textDecoration: "none" }}>Open the build guide →</a>
+      </div>
+    </div>
+    <div className="contract-card">
+      <h3>Originate vaults</h3>
+      <p>createVault is permissionless: launch a vault for any community at 0.004 ETH and hold its creation-platform slot permanently.</p>
+      <div style={{ marginTop: "1rem" }}>
+        <a href="./build/#originate" className="copy-btn" style={{ textDecoration: "none" }}>See the snippet →</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
 <section className="section" id="security">
 <div className="container">
   <div className="section-header">
@@ -377,7 +411,7 @@ export default function Page() {
 </section>
 
 
-<section className="section" id="roadmap">
+<section className="section" id="networks">
 <div className="container">
   <div className="section-header">
     <div className="eyebrow">Networks</div>

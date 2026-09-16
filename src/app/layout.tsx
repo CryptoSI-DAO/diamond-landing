@@ -34,9 +34,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body>
+        <body>
         {children}
-        <script src="site.js" defer></script>
+        <script src={`${process.env.BASE_PATH || ""}/site.js`} defer></script>
       </body>
     </html>
   );
