@@ -23,7 +23,7 @@ export default function Page() {
       <svg className="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
       <svg className="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
     </button>
-    <a href="https://diamond-app-chi.vercel.app" target="_blank" rel="noopener" className="nav-cta">Testnet App →</a>
+    <a href="https://app.dhp.cryptosidao.org" target="_blank" rel="noopener" className="nav-cta">Open App →</a>
     <button className="nav-menu-btn" id="navMenuBtn" aria-label="Open menu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
@@ -35,7 +35,7 @@ export default function Page() {
   <a href="#security">Security</a>
   <a href="#contracts">Contracts</a>
   <a href="#roadmap">Roadmap</a>
-  <a href="https://diamond-app-chi.vercel.app" target="_blank" rel="noopener" style={{ color: "var(--accent)", fontWeight: "600" }}>Testnet App →</a>
+  <a href="https://app.dhp.cryptosidao.org" target="_blank" rel="noopener" style={{ color: "var(--accent)", fontWeight: "600" }}>Open App →</a>
 </div>
 </nav>
 
@@ -56,7 +56,7 @@ export default function Page() {
       <p className="hero-sub">A permissionless vault factory on Base. Every tax event pays holders as dividends and burns tokens. The longer you hold, the more you earn from those who don't.</p>
 
       <div className="hero-ctas">
-        <a href="https://diamond-app-chi.vercel.app" target="_blank" rel="noopener" className="btn btn-primary">
+        <a href="https://app.dhp.cryptosidao.org" target="_blank" rel="noopener" className="btn btn-primary">
           Launch App
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -536,7 +536,7 @@ export default function Page() {
     <h2>Try it. Break it. Tell us.</h2>
     <p>The testnet is live. Deposit fake SPX, claim real dividends, watch the burn. Found a bug? Open an issue.</p>
     <div className="cta-buttons">
-      <a href="https://diamond-app-chi.vercel.app" target="_blank" rel="noopener" className="btn btn-primary">
+      <a href="https://app.dhp.cryptosidao.org" target="_blank" rel="noopener" className="btn btn-primary">
         Open testnet
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
