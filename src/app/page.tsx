@@ -1,3 +1,5 @@
+import ChainTyper from "../components/ChainTyper";
+
 export default function Page() {
   return (
 <>
@@ -49,7 +51,10 @@ export default function Page() {
       </div>
       <div className="hero-status">
         <span className="status-dot"></span>
-        <span>Live on Base Mainnet</span>
+        <span className="sr-only">Live on Base, Robinhood, Ethereum, BNB, and Arc</span>
+        <span aria-hidden="true">
+          Live on <ChainTyper /><span className="typer-caret"></span>
+        </span>
       </div>
       <h1>Paper hands fund <span className="gradient-text">diamond hands</span>.</h1>
       <p className="hero-tagline">On-chain. Forever.</p>
@@ -68,15 +73,15 @@ export default function Page() {
 
       <div className="hero-stats">
         <div>
-          <div className="stat-num" data-target="101">0</div>
+          <div className="stat-num" data-target="101" suppressHydrationWarning>0</div>
           <div className="stat-label">Tests passing</div>
         </div>
         <div>
-          <div className="stat-num" data-target="3">0</div>
+          <div className="stat-num" data-target="3" suppressHydrationWarning>0</div>
           <div className="stat-label">Chains planned</div>
         </div>
         <div>
-          <div className="stat-num" data-target="0" data-suffix="%">0%</div>
+          <div className="stat-num" data-target="0" data-suffix="%" suppressHydrationWarning>0%</div>
           <div className="stat-label">Admin keys</div>
         </div>
       </div>
@@ -315,14 +320,14 @@ export default function Page() {
       <div className="security-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg>
       </div>
-      <div className="security-num" data-target="101">0</div>
+      <div className="security-num" data-target="101" suppressHydrationWarning>0</div>
       <div className="security-label">Tests passing</div>
     </div>
     <div className="security-card">
       <div className="security-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 12-4 8 4 12 4M3 12l9-9 9 9M5 10v10a1 1 0 001 1h12a1 1 0 001-1V10"/></svg>
       </div>
-      <div className="security-num" data-target="3">0</div>
+      <div className="security-num" data-target="3" suppressHydrationWarning>0</div>
       <div className="security-label">Sourcify verified</div>
     </div>
     <div className="security-card">
@@ -336,7 +341,7 @@ export default function Page() {
       <div className="security-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1l9 4v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4z"/></svg>
       </div>
-      <div className="security-num" data-target="0">0</div>
+      <div className="security-num" data-target="0" suppressHydrationWarning>0</div>
       <div className="security-label">Admin keys (renounced)</div>
     </div>
   </div>

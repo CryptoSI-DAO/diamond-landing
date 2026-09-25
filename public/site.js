@@ -171,40 +171,41 @@ document.addEventListener('DOMContentLoaded',function(){
   // VIDEO EMBED (click-to-play)
   // ============================================================
   const videoEmbed = document.getElementById('videoEmbed');
-  videoEmbed.addEventListener('click', () => {
-    // Replace with your video URL. Currently a placeholder.
-    const videoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0';
-    videoEmbed.innerHTML = `<iframe width="100%" height="100%" src="${videoUrl}" title="Diamond Hands Protocol Explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border:0;"></iframe>`;
-  });
-  videoEmbed.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      videoEmbed.click();
-    }
-  });
+  if (videoEmbed) {
+    videoEmbed.addEventListener('click', () => {
+      // Replace with your video URL. Currently a placeholder.
+      const videoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0';
+      videoEmbed.innerHTML = `<iframe width="100%" height="100%" src="${videoUrl}" title="Diamond Hands Protocol Explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border:0;"></iframe>`;
+    });
+    videoEmbed.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        videoEmbed.click();
+      }
+    });
+  }
 
   // ============================================================
-  // INTERSECTION OBSERVER FOR FADE-INS
+  // INTERSECTION OBSERVER FOR SCROLL REVEALS
   // ============================================================
+  // Entrance animations apply only when a section scrolls into view —
+  // never pre-hydration — so React hydration always matches the server
+  // HTML. Above-fold hero rows animate via pure CSS (fade-up keyframes).
   if ('IntersectionObserver' in window) {
-    const fadeEls = document.querySelectorAll('.flow-row, .econ-card, .security-card, .contract-card, .roadmap-item, .step');
-    fadeEls.forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    });
+    const revealEls = document.querySelectorAll('.econ-card, .security-card, .contract-card, .roadmap-item, .step');
     const fadeObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }, i * 50);
-          fadeObserver.unobserve(entry.target);
+          const el = entry.target;
+          if (!el.dataset.revealed) {
+            el.dataset.revealed = 'true';
+            el.style.animation = `fade-up 0.6s ease ${i * 50}ms backwards`;
+          }
+          fadeObserver.unobserve(el);
         }
       });
     }, { threshold: 0.1 });
-    fadeEls.forEach(el => fadeObserver.observe(el));
+    revealEls.forEach(el => fadeObserver.observe(el));
   }
 
   // ============================================================
