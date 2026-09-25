@@ -1009,7 +1009,6 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 @media (max-width: 968px) {
   .hero { min-height: auto; padding: 120px 0 60px; }
   .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-  .hero-visual { order: -1; }
   .security-grid { grid-template-columns: repeat(2, 1fr); }
   .economics-grid { grid-template-columns: 1fr; }
   .contracts-grid { grid-template-columns: 1fr; }
