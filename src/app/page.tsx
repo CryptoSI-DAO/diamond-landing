@@ -1,5 +1,79 @@
 import ChainTyper from "../components/ChainTyper";
 
+// v1.4.0 contract set — identical deterministic addresses on every chain
+// (fresh nonce-0 deploys of the same bytecode). Verified on-chain via
+// eth_getCode read-backs; mirrors the app registry (diamond-app
+// src/lib/addresses.ts). Robinhood explorer = viem's official Blockscout
+// (robinscan.io is a dead host); Arc explorer is Cloudflare-gated to bots
+// but fine for humans.
+const CONTRACTS = {
+  factory: "0x64BE13cE698684846Ae0642c1c63bb5eDE8F6929",
+  implementation: "0x75a7Fee6e8c17F6A7C39136C69A869fe99961D94",
+  feeCollector: "0x0D48743923D8fcE041325F98B5Ce884a323f5499",
+};
+
+const CONTRACT_COLS: { key: keyof typeof CONTRACTS; label: string }[] = [
+  { key: "factory", label: "DHPFactory" },
+  { key: "implementation", label: "DHPImplementation" },
+  { key: "feeCollector", label: "DHPFeeCollector" },
+];
+
+function ChainLogo({ glyph, color }: { glyph: string; color: string }) {
+  const dark = color === "#00CC00" || color === "#F0B90B"; // bright tiles → dark glyph
+  const ink = dark ? "#111111" : "#ffffff";
+  return (
+    <span className="chain-logo" style={{ background: color }} aria-hidden="true">
+      {glyph === "base" && (
+        <svg viewBox="0 0 24 24" fill={ink}>
+          <path fillRule="evenodd" d="M12 1.5C6.201 1.5 1.5 6.201 1.5 12S6.201 22.5 12 22.5 22.5 17.799 22.5 12 17.799 1.5 12 1.5Zm-1.1 9.4h8.35a1.1 1.1 0 0 1 0 2.2H10.9a1.1 1.1 0 0 1 0-2.2Z" />
+        </svg>
+      )}
+      {glyph === "ethereum" && (
+        <svg viewBox="0 0 24 24" fill={ink}>
+          <path d="M12 2 5.7 12.1 12 15.9l6.3-3.8L12 2Z" opacity="0.95" />
+          <path d="M12 17.3 5.7 13.5 12 22l6.3-8.5-6.3 3.8Z" opacity="0.7" />
+        </svg>
+      )}
+      {glyph === "bnb" && (
+        <svg viewBox="0 0 24 24" fill={ink}>
+          <path d="M12 2.8 15 5.8 12 8.8 9 5.8Z" />
+          <path d="M12 15.2l3 3-3 3-3-3Z" />
+          <path d="M5.8 9 8.8 12l-3 3-3-3Z" />
+          <path d="M18.2 9l3 3-3 3-3-3Z" />
+          <path d="M12 8.9 15.1 12 12 15.1 8.9 12Z" />
+        </svg>
+      )}
+      {glyph === "robinhood" && (
+        <svg viewBox="0 0 24 24" fill={ink}>
+          <path d="M20.5 3.5c-6.5.2-11.4 3.2-13.6 8.3L4 20l8.2-2.9c5.1-2.2 8.1-7.1 8.3-13.6Z" />
+          <path d="M4.5 19.5 13 11" stroke={color} strokeWidth="1.4" strokeLinecap="round" fill="none" />
+        </svg>
+      )}
+      {glyph === "arc" && (
+        <svg viewBox="0 0 24 24" fill="none" stroke={ink} strokeWidth="2.4" strokeLinecap="round">
+          <path d="M4.5 16.5a8 8 0 0 1 15 0" />
+          <circle cx="4.5" cy="16.5" r="1.7" fill={ink} stroke="none" />
+          <circle cx="19.5" cy="16.5" r="1.7" fill={ink} stroke="none" />
+          <circle cx="12" cy="8.5" r="1.7" fill={ink} stroke="none" />
+        </svg>
+      )}
+    </span>
+  );
+}
+
+const NETWORKS: { name: string; glyph: string; color: string; explorer: string }[] = [
+  { name: "Base", glyph: "base", color: "#0052FF", explorer: "https://basescan.org" },
+  { name: "Ethereum", glyph: "ethereum", color: "#627EEA", explorer: "https://etherscan.io" },
+  { name: "BNB Chain", glyph: "bnb", color: "#F0B90B", explorer: "https://bscscan.com" },
+  { name: "Robinhood Chain", glyph: "robinhood", color: "#00CC00", explorer: "https://robinhoodchain.blockscout.com" },
+  { name: "Arc", glyph: "arc", color: "#2F578C", explorer: "https://explorer.arc.io" },
+];
+
+/** Same abbreviation shape the table has always shown: 0x64BE13cE…e8F6929 */
+function shortAddr(addr: string): string {
+  return `${addr.slice(0, 10)}…${addr.slice(-7)}`;
+}
+
 export default function Page() {
   return (
 <>
@@ -77,8 +151,8 @@ export default function Page() {
           <div className="stat-label">Tests passing</div>
         </div>
         <div>
-          <div className="stat-num" data-target="3" suppressHydrationWarning>0</div>
-          <div className="stat-label">Chains planned</div>
+          <div className="stat-num" data-target="5" suppressHydrationWarning>0</div>
+          <div className="stat-label">Chains live</div>
         </div>
         <div>
           <div className="stat-num" data-target="0" data-suffix="%" suppressHydrationWarning>0%</div>
@@ -158,11 +232,11 @@ export default function Page() {
 
   <div className="live-banner">
     <div className="live-banner-left">
-      <h4>🟢 Base Mainnet — LIVE</h4>
-      <p>3 contracts live, Blockscout-verified, deployment smoke-tested on rehearsal. Deposit, claim dividends, watch the burn.</p>
+      <h4>🟢 Five Chains — LIVE</h4>
+      <p>Identical contracts live on Base, Ethereum, BNB Chain, Robinhood Chain and Arc — independently verified per chain. Deposit, claim dividends, watch the burn.</p>
     </div>
     <div className="live-banner-stats">
-      <div className="live-stat">Chain<strong>Base</strong></div>
+      <div className="live-stat">Chains<strong>5</strong></div>
       <div className="live-stat">Verified<strong style={{ color: "var(--accent)" }}>✓</strong></div>
       <div className="live-stat">Tests<strong>101/101</strong></div>
     </div>
@@ -367,8 +441,8 @@ export default function Page() {
 <div className="container">
   <div className="section-header">
     <div className="eyebrow">Contracts</div>
-    <h2>Live on Base Mainnet</h2>
-    <p style={{ maxWidth: "600px", margin: "0 auto" }}>v1.4.0 — all three contracts deployed (September 2026, block 51,343,897) and Blockscout-verified. Free-market creation, six-way partner revenue split, pull payments.</p>
+    <h2>Live on Five Chains</h2>
+    <p style={{ maxWidth: "600px", margin: "0 auto" }}>v1.4.0 — identical contracts deployed on Base, Ethereum, BNB Chain, Robinhood Chain and Arc, independently verified per chain. Free-market creation, six-way partner revenue split, pull payments.</p>
   </div>
 
   <div className="contracts-grid">
@@ -421,7 +495,7 @@ export default function Page() {
   <div className="section-header">
     <div className="eyebrow">Networks</div>
     <h2>One protocol. Every chain.</h2>
-    <p style={{ maxWidth: "600px", margin: "0 auto" }}>Same bytecode, fresh chains. v1.4.0 is live on Base; the same contracts roll out across the wider EVM ecosystem.</p>
+    <p style={{ maxWidth: "600px", margin: "0 auto" }}>Same bytecode, fresh chains. v1.4.0 is live on five networks — identical, deterministic contract addresses everywhere, independently verified per chain.</p>
   </div>
 
   <div style={{ overflowX: "auto", marginTop: "2rem" }}>
@@ -430,45 +504,42 @@ export default function Page() {
         <tr style={{ borderBottom: "2px solid #e7f900" }}>
           <th style={{ textAlign: "left", padding: "0.75rem 1rem", color: "#e7f900", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "0.72rem" }}>Network</th>
           <th style={{ textAlign: "left", padding: "0.75rem 1rem", color: "#e7f900", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "0.72rem" }}>Status</th>
-          <th style={{ textAlign: "left", padding: "0.75rem 1rem", color: "#e7f900", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "0.72rem" }}>DHPFactory</th>
-          <th style={{ textAlign: "left", padding: "0.75rem 1rem", color: "#e7f900", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "0.72rem" }}>DHPImplementation</th>
-          <th style={{ textAlign: "left", padding: "0.75rem 1rem", color: "#e7f900", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "0.72rem" }}>DHPFeeCollector</th>
+          {CONTRACT_COLS.map((c) => (
+            <th key={c.key} style={{ textAlign: "left", padding: "0.75rem 1rem", color: "#e7f900", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "0.72rem" }}>{c.label}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
-        <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
-          <td style={{ padding: "1rem", fontWeight: 700, whiteSpace: "nowrap" }}>Base</td>
-          <td style={{ padding: "1rem" }}><span className="contract-badge">● LIVE</span></td>
-          <td style={{ padding: "1rem" }}><a href="https://base.blockscout.com/address/0x64be13ce698684846ae0642c1c63bb5ede8f6929" target="_blank" rel="noopener" className="addr-text" style={{ textDecoration: "underline" }}>0x64BE13cE…e8F6929</a></td>
-          <td style={{ padding: "1rem" }}><a href="https://base.blockscout.com/address/0x75a7fee6e8c17f6a7c39136c69a869fe99961d94" target="_blank" rel="noopener" className="addr-text" style={{ textDecoration: "underline" }}>0x75a7Fee6…99961D94</a></td>
-          <td style={{ padding: "1rem" }}><a href="https://base.blockscout.com/address/0x0d48743923d8fce041325f98b5ce884a323f5499" target="_blank" rel="noopener" className="addr-text" style={{ textDecoration: "underline" }}>0x0D487439…23f5499</a></td>
-        </tr>
-        <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
-          <td style={{ padding: "1rem", fontWeight: 700, whiteSpace: "nowrap" }}>Ethereum</td>
-          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
-          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
-          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
-          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
-        </tr>
-        <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
-          <td style={{ padding: "1rem", fontWeight: 700, whiteSpace: "nowrap" }}>BNB Chain</td>
-          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
-          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
-          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
-          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
-        </tr>
-        <tr>
-          <td style={{ padding: "1rem", fontWeight: 700, whiteSpace: "nowrap" }}>Robinhood Chain</td>
-          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
-          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
-          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
-          <td style={{ padding: "1rem", opacity: 0.55 }}>Coming soon</td>
-        </tr>
+        {NETWORKS.map((net, i) => (
+          <tr key={net.name} style={i < NETWORKS.length - 1 ? { borderBottom: "1px solid rgba(255,255,255,0.12)" } : undefined}>
+            <td style={{ padding: "1rem", whiteSpace: "nowrap" }}>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", fontWeight: 700 }}>
+                <ChainLogo glyph={net.glyph} color={net.color} />
+                {net.name}
+              </span>
+            </td>
+            <td style={{ padding: "1rem" }}><span className="contract-badge">● LIVE</span></td>
+            {CONTRACT_COLS.map((c) => (
+              <td key={c.key} style={{ padding: "1rem" }}>
+                <a
+                  href={`${net.explorer}/address/${CONTRACTS[c.key]}`}
+                  target="_blank"
+                  rel="noopener"
+                  className="addr-text"
+                  style={{ textDecoration: "underline" }}
+                  title={`${c.label} on ${net.name}`}
+                >
+                  {shortAddr(CONTRACTS[c.key])}
+                </a>
+              </td>
+            ))}
+          </tr>
+        ))}
       </tbody>
     </table>
   </div>
   <p style={{ textAlign: "center", marginTop: "1rem", fontSize: "0.78rem", opacity: 0.55 }}>
-    Addresses abbreviated for display — click any to open the explorer. Multichain deployments will use identical, independently verified source code.
+    Addresses abbreviated for display — click any to open the chain's explorer. Every network runs the identical bytecode, deployed deterministically and verified independently per chain.
   </p>
 </div>
 </section>
@@ -515,19 +586,11 @@ export default function Page() {
       </div>
     </div>
     <div className="roadmap-item">
-      <div className="roadmap-dot"></div>
+      <div className="roadmap-dot done"></div>
       <div className="roadmap-content">
-        <span className="roadmap-tag upcoming">Q1 2027</span>
-        <h3>BNB Chain + Ethereum L1</h3>
-        <p>Same addresses, same bytecode, fresh chains. SPX6900 + curated partner communities. The Graph subgraph for indexing.</p>
-      </div>
-    </div>
-    <div className="roadmap-item">
-      <div className="roadmap-dot"></div>
-      <div className="roadmap-content">
-        <span className="roadmap-tag upcoming">Later</span>
-        <h3>Robinhood Chain + more</h3>
-        <p>Arbitrum Orbit deployments for chains that want a sovereign L2 with DHP as canonical infrastructure.</p>
+        <span className="roadmap-tag done">Shipped</span>
+        <h3>Multichain: Ethereum, BNB, Robinhood, Arc</h3>
+        <p>Same addresses, same bytecode, fresh chains — deterministic deploys verified per chain on all four (September 2026). Arc brings USDC-native gas.</p>
       </div>
     </div>
   </div>
