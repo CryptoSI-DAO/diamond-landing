@@ -612,7 +612,7 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 .steps::before {
   content: '';
   position: absolute;
-  top: 30px;
+  top: 200px;
   left: 12%;
   right: 12%;
   height: 1px;
@@ -642,6 +642,63 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   font-family: 'JetBrains Mono', monospace;
 }
 .step h3 { font-size: 18px; margin-bottom: 8px; }
+
+/* --- step media: poster image that comes alive on hover --- */
+.step-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--code-bg);
+  margin-bottom: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.step:hover .step-media {
+  border-color: var(--accent-dim);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(231, 249, 0, 0.10);
+}
+.step-media img,
+.step-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.step-media video {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.step:hover .step-media video { opacity: 1; }
+.step-media-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%) translateY(4px);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  border: 1px solid var(--accent-dim);
+  border-radius: 999px;
+  padding: 3px 10px;
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.step:hover .step-media-hint {
+  opacity: 0;
+  transform: translateX(-50%) translateY(6px);
+}
+@media (hover: none) {
+  .step-media-hint { display: none; }
+}
 .step p { font-size: 14px; color: var(--muted); line-height: 1.5; }
 
 /* ============================================================

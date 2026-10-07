@@ -186,6 +186,23 @@ document.addEventListener('DOMContentLoaded',function(){
   }
 
   // ============================================================
+  // STEP MEDIA: image -> video on hover ("How it works" section)
+  // ============================================================
+  // Media-API only (play/pause) — no DOM writes, so hydration-safe under
+  // the site.js rules. Videos use preload="none": zero network cost
+  // until the first hover.
+  document.querySelectorAll('.step').forEach(function(step) {
+    var video = step.querySelector('.step-media video');
+    if (!video) return;
+    step.addEventListener('pointerenter', function() {
+      video.play().catch(function() {});
+    });
+    step.addEventListener('pointerleave', function() {
+      video.pause();
+    });
+  });
+
+  // ============================================================
   // INTERSECTION OBSERVER FOR SCROLL REVEALS
   // ============================================================
   // Entrance animations apply only when a section scrolls into view —
