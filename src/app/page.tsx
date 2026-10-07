@@ -280,9 +280,9 @@ export default function Page() {
       <div className="step-media">
         <img src="how/step-deploy.jpg" alt="A factory press stamping identical diamond vault clones onto a conveyor" loading="lazy" />
         <video src="how/step-deploy.mp4" poster="how/step-deploy.jpg" muted loop playsInline preload="none" tabIndex={-1} aria-hidden="true"></video>
+        <span className="step-num-badge" aria-hidden="false">1</span>
         <span className="step-media-hint">Hover to play</span>
       </div>
-      <div className="step-num">1</div>
       <h3>Deploy</h3>
       <p>Anyone calls the factory with a token plus creator and platform wallets. A new vault is cloned via EIP-1167 in a single transaction — taxes are hard-coded, no config to get wrong. 0.004 ETH creation fee.</p>
     </div>
@@ -290,9 +290,9 @@ export default function Page() {
       <div className="step-media">
         <img src="how/step-deposit.jpg" alt="A stream of tokens pouring into a diamond vault while a thin ribbon is skimmed off as tax" loading="lazy" />
         <video src="how/step-deposit.mp4" poster="how/step-deposit.jpg" muted loop playsInline preload="none" tabIndex={-1} aria-hidden="true"></video>
+        <span className="step-num-badge">2</span>
         <span className="step-media-hint">Hover to play</span>
       </div>
-      <div className="step-num">2</div>
       <h3>Deposit</h3>
       <p>Users deposit the underlying token. A tax is taken. Shares are minted pro-rata to the net amount.</p>
     </div>
@@ -300,9 +300,9 @@ export default function Page() {
       <div className="step-media">
         <img src="how/step-accrue.jpg" alt="A diamond prism splitting one beam into six unequal streams — dividends, burn, treasury and partner splits" loading="lazy" />
         <video src="how/step-accrue.mp4" poster="how/step-accrue.jpg" muted loop playsInline preload="none" tabIndex={-1} aria-hidden="true"></video>
+        <span className="step-num-badge">3</span>
         <span className="step-media-hint">Hover to play</span>
       </div>
-      <div className="step-num">3</div>
       <h3>Accrue</h3>
       <p>Every tax event fires the same immutable split: 80% dividends to existing holders, 10% burned forever, 4% to the DAO treasury, and 2% each to the vault creator, creation platform, and usage platform — all pull payments, untouchable by admins.</p>
     </div>
@@ -310,9 +310,9 @@ export default function Page() {
       <div className="step-media">
         <img src="how/step-claim.jpg" alt="A hand holding a diamond steady through falling dividend coins and rising burn embers" loading="lazy" />
         <video src="how/step-claim.mp4" poster="how/step-claim.jpg" muted loop playsInline preload="none" tabIndex={-1} aria-hidden="true"></video>
+        <span className="step-num-badge">4</span>
         <span className="step-media-hint">Hover to play</span>
       </div>
-      <div className="step-num">4</div>
       <h3>Claim &amp; exit</h3>
       <p>Claim dividends anytime. Exit with redeem — exit tax applies, more dividends accrue, more tokens burn.</p>
     </div>
