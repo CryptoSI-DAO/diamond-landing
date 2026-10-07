@@ -538,7 +538,7 @@ export default function Page() {
                 {net.name}
               </span>
             </td>
-            <td style={{ padding: "1rem" }}><span className="contract-badge">● LIVE</span></td>
+            <td style={{ padding: "1rem" }}><span className="contract-badge live-badge"><span className="live-dot" aria-hidden="true"></span>LIVE</span></td>
             {CONTRACT_COLS.map((c) => (
               <td key={c.key} style={{ padding: "1rem" }}>
                 <a
