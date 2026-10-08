@@ -406,29 +406,42 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   margin-bottom: 48px;
   flex-wrap: wrap;
 }
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  padding-top: 32px;
-  border-top: 1px solid var(--border);
+/* DAO card (hero) */
+.dao-card {
+  margin-top: 32px;
+  padding: 18px 20px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
 }
-.stat-num {
-  font-size: clamp(24px, 3vw, 32px);
-  font-weight: 700;
-  color: var(--fg);
-  margin-bottom: 4px;
-  font-feature-settings: "tnum";
-  line-height: 1;
+.dao-blurb {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--fg-soft);
+  margin-bottom: 14px;
 }
-.stat-label {
-  font-size: 11px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 500;
-  line-height: 1.3;
+.dao-token {
+  margin-bottom: 12px;
 }
+.dao-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.dao-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.dao-link:hover { opacity: 0.8; text-decoration: underline; }
+.dao-link svg { width: 13px; height: 13px; }
+.dao-sep { color: var(--muted); }
 
 /* Hero Visual */
 .hero-visual {
@@ -1119,7 +1132,6 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
   .hero-status { font-size: 12px; padding: 5px 12px; }
   .hero-ctas { flex-direction: column; width: 100%; }
   .hero-ctas .btn { width: 100%; }
-  .hero-stats { grid-template-columns: 1fr; gap: 20px; text-align: center; }
   .live-banner { flex-direction: column; align-items: flex-start; padding: 20px; }
   .live-banner-stats { width: 100%; justify-content: space-between; gap: 16px; }
   .live-stat { font-size: 12px; }
@@ -1168,7 +1180,6 @@ a { color: inherit; text-decoration: none; transition: all 0.2s ease; }
 @media (max-width: 400px) {
   h1 { font-size: 36px; }
   h2 { font-size: 28px; }
-  .hero-stats { gap: 16px; }
   .security-grid { grid-template-columns: 1fr; }
   .live-banner-stats { flex-direction: column; gap: 8px; }
 }

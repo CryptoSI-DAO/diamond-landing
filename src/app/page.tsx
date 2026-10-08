@@ -145,18 +145,21 @@ export default function Page() {
         </a>
       </div>
 
-      <div className="hero-stats">
-        <div>
-          <div className="stat-num" data-target="101" suppressHydrationWarning>0</div>
-          <div className="stat-label">Tests passing</div>
+      <div className="dao-card">
+        <p className="dao-blurb">
+          Diamond Hands Protocol is a <strong>CryptoSI DAO</strong> project. The DAO&apos;s token, CRDD, lives on Arbitrum:
+        </p>
+        <div className="contract-address dao-token">
+          <span className="addr-text">CRDD · 0x239F89d0a2484f548A43D40244823623F3732a8B</span>
+          <button className="copy-btn" data-copy="0x239F89d0a2484f548A43D40244823623F3732a8B" aria-label="Copy CRDD token address">Copy</button>
         </div>
-        <div>
-          <div className="stat-num" data-target="5" suppressHydrationWarning>0</div>
-          <div className="stat-label">Chains live</div>
-        </div>
-        <div>
-          <div className="stat-num" data-target="0" data-suffix="%" suppressHydrationWarning>0%</div>
-          <div className="stat-label">Admin keys</div>
+        <div className="dao-links">
+          <a className="dao-link" href="https://app.uniswap.org/swap?chain=arbitrum&outputCurrency=0x239F89d0a2484f548A43D40244823623F3732a8B" target="_blank" rel="noopener">
+            Buy CRDD on Uniswap
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+          <span className="dao-sep" aria-hidden="true">·</span>
+          <a className="dao-link" href="https://cryptosidao.org" target="_blank" rel="noopener">cryptosidao.org</a>
         </div>
       </div>
     </div>
