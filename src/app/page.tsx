@@ -159,6 +159,11 @@ export default function Page() {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
           </a>
           <span className="dao-sep" aria-hidden="true">·</span>
+          <a className="dao-link" href="https://app.uniswap.org/explore/pools/arbitrum/0xc8E10A6F61352C8E8B6C8c61ea2b350147Aa4982?chart=price&utm_source=share-pool&utm_medium=web" target="_blank" rel="noopener">
+            CRDD/WETH pool
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+          <span className="dao-sep" aria-hidden="true">·</span>
           <a className="dao-link" href="https://cryptosidao.org" target="_blank" rel="noopener">cryptosidao.org</a>
         </div>
       </div>
