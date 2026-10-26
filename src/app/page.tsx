@@ -661,6 +661,7 @@ export default function Page() {
     <div className="footer-col">
       <h4>Protocol</h4>
       <ul>
+        <li><a href="https://docs.dhp.cryptosidao.org" target="_blank" rel="noopener">Documentation</a></li>
         <li><a href="#how">How it works</a></li>
         <li><a href="#economics">Economics</a></li>
         <li><a href="#security">Security</a></li>
